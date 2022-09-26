@@ -5,7 +5,7 @@
   "homepage": "https://github.com/AlenaKabushko/GoTea_JS_project",
   "scripts": {
     "start": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url GoTea_JS_project/"
+    "build": "parcel build src/*.html --public-url /GoTea_JS_project/"
   },
   "repository": {
     "type": "git",
