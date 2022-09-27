@@ -1,0 +1,28 @@
+html {
+    scroll-behavior: smooth;
+}
+
+h1,
+h2,
+h3,
+p,
+ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;    
+    color: var(--text-main);
+}
+
+.list {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
