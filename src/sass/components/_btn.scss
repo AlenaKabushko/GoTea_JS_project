@@ -1,0 +1,31 @@
+.btn {
+    width: 148px;
+    height: 42px;
+    border-radius: 5px;
+
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.33;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+
+    color: var(--text-secondary);
+}
+
+.btn-watch {
+    background-color: var(--bg-btn-accent);
+    border-color: transparent;
+}
+
+.btn-queue-modal {
+    background-color: var(--bg-btn-modal);
+    border: 1px solid var(--main);
+
+    color: var(--main);
+}
+
+.btn-queue {    
+    background-color: transparent;
+    border: 1px solid var(--bg-btn-modal);
+}

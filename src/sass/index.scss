@@ -1,2 +1,8 @@
-@import './common';
-@import './header';
+@import './base/common';
+@import './base/reset';
+@import './utils/var';
+@import './utils/hidden';
+@import './components/btn';
+
+@import './layots/header';
+
