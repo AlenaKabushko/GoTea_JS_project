@@ -1,1 +1,0 @@
-{"mappings":"AAAA,IAAkBA,IAIT,QAHLC,QAAQC,IAAI,kBAAkBF","sources":["src/js/header.js"],"sourcesContent":["function onHeader(team) {\n    console.log(`I'm JS. Hello, ${team}!`)\n};\n\nonHeader(\"GoTea\");"],"names":["team","console","log"],"version":3,"file":"index.ace75974.js.map"}
