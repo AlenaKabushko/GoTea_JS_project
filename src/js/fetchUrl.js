@@ -9,7 +9,7 @@ axios.defaults.baseURL = `https://api.themoviedb.org/3`;
 
 const getTrendingList = async (page = 1) => {
   const { data } = await axios.get(
-    `/movie/popular/week?api_key=${API_KEY}&page=${page}`
+    `/movie/popular?api_key=${API_KEY}&page=${page}`
   );
   return data;
 };
