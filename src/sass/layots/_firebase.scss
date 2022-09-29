@@ -1,0 +1,37 @@
+.auth {
+    display: flex;
+}
+.reg-container{
+    display: block;
+    margin-right: 20px;
+}
+.reg-form{
+    display: flex;
+    flex-direction: column;
+
+}
+.reg-form input{
+    margin-bottom: 10px;
+}
+.login-form{
+display: flex;
+    flex-direction: column;
+}
+.login-form input {
+    margin-bottom: 10px;
+}
+.login-container{
+    display: block;
+}
+
+.or{
+    display: block;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+.or p{
+    align-items: center;
+}
