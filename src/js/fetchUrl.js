@@ -1,5 +1,8 @@
 ﻿import axios from 'axios';
 
+// для добавления кликов по отрендеренным карточкам
+import { setGalleryClickListeners } from './gallery-card-modal';
+
 const refs = {
   filmsGallery: document.querySelector('.films-gallery'),
 };
@@ -174,6 +177,9 @@ export function renderMoviesMarkup(movies) {
   const markupList = createMoviesListMarkup(movies.results);
   //вставка в контейнер
   refs.filmsGallery.innerHTML = markupList;
+
+  //устанавливаем обработчики кликов по карточкам
+  setGalleryClickListeners();
 }
 
 function createMoviesListMarkup(movies) {
