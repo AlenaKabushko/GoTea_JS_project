@@ -17,10 +17,13 @@ export const requestTypes = {
   ID: 'id',
 };
 
-//глобальный объект с переменными, до которыеёх надо иметь доступ с любого места
+//глобальный объект с переменными, до которых надо иметь доступ с любого места
 export let requestData = {
   //номер запрашиваемой страницы
   page: 1,
+
+  //номер текущего запроса (для пагинации)
+  request: requestTypes.TRENDING,
 
   //строка для фильтра по жанрам
   discover: '',
@@ -51,6 +54,7 @@ export const getServerData = async (type = requestTypes.TRENDING) => {
   requestData.movies = null;
   switch (type) {
     case requestTypes.TRENDING: {
+      requestData.request = type;
       const { data } = await axios.get(
         `/trending/movie/day?api_key=${API_KEY}&page=${requestData.page}`
       );
@@ -61,12 +65,14 @@ export const getServerData = async (type = requestTypes.TRENDING) => {
       return data;
     }
     case requestTypes.DISCOVER: {
+      requestData.request = type;
       const { data } = await axios.get(
         `/discover/movie?api_key=${API_KEY}&page=${requestData.page}&with_genres=${requestData.discover}`
       );
       return data;
     }
     case requestTypes.SEARCH: {
+      requestData.request = type;
       const { data } = await axios.get(
         `/search/movie?api_key=${API_KEY}&page=${requestData.page}&query=${requestData.search}`
       );
@@ -81,28 +87,42 @@ export const getServerData = async (type = requestTypes.TRENDING) => {
   }
 };
 
+//функция для продолжения текущего запроса для заданной страницы (для пагинации)
+//перед вызовом задаем номер страницы. Все остальные данные сохранены в глобальной переменной
+export function getNextServerData() {
+  getServerData(requestData.request);
+}
+
 //-----------------------------------------------------------------------
 //на старте:
 
 //запрос массива соответствия номера жанра и названия
-getServerData(requestTypes.GENRE).then(data => {
-  //сохраним его в глобальной переменной
-  requestData.genres = data.genres;
-});
+getServerData(requestTypes.GENRE)
+  .then(data => {
+    //сохраним его в глобальной переменной
+    requestData.genres = data.genres;
+    return true;
+  })
+  .then(() => {
+    //и массива объектов с отображением
+    requestData.page = 1;
+    getServerData(requestTypes.TRENDING).then(movies => {
+      renderMoviesMarkup(movies);
+    });
+  });
 
+//-----------------------------------------------------------------------
+//Следующие пять функции перенесутся в нужные файлы
+//Пока здесь для наглядности
 //-----------------------------------------------------------------------
 //запрос всех данных и их отображение на сегодня
-//повтор вызова этой функции при возврате "домой"
 //перед вызовом задаем номер страницу в глобальной переменной
 //при "домой" - первую, при пагинации нужную
-requestData.page = 1;
-getServerData(requestTypes.TRENDING).then(movies => {
-  renderMoviesMarkup(movies);
-});
+// requestData.page = 1;
+// getServerData(requestTypes.TRENDING).then(movies => {
+//   renderMoviesMarkup(movies);
+// });
 
-//-----------------------------------------------------------------------
-//Следующие три функции перенесутся в нужные файлы
-//Пока здесь для наглядности
 //-----------------------------------------------------------------------
 //запрос данных и их отображение при фильтрации по жанрам
 //перед вызовом необходимо записать номера жанров в глобальную переменную
@@ -137,6 +157,12 @@ getServerData(requestTypes.TRENDING).then(movies => {
 //   setMovieGenresNames(movie);
 //   requestData.movie = movie;
 // });
+
+//-----------------------------------------------------------------------
+//продолжение текущего запроса для заданной страницы (для пагинации)
+//перед вызовом задаем номер страницы
+// requestData.page = 2;
+// getNextServerData();
 
 //функция рендеринга принятого массива данных после получения с сервера
 export function renderMoviesMarkup(movies) {
@@ -205,6 +231,7 @@ export function setMovieGenresNames(movie) {
 //функция замены массива жанров на строку
 //параметры: массив объектов и массив соответствия номера жанра и названия
 function setGenresNames(movies, genresList) {
+  console.log(movies, genresList);
   //по всем объектам
   movies.forEach(movie => {
     //усечение даты до года
