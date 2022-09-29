@@ -71,6 +71,7 @@
   gap: 8px;
   flex-direction: column;
   list-style: none;
+  font-size: 12px;
 
   &__values {
     display: flex;
@@ -83,7 +84,25 @@
   }
 
   &__value {
+    display: flex;
     width: 50%;
+    line-height: 1.3;
+
+    &--vote-orange {
+      text-align: center;
+      width: 36px;
+      border-radius: 5px;
+      background-color: var(--bg-btn-accent);
+      margin-right: 5px;
+    }
+
+    &--vote-grey {
+      text-align: center;
+      width: 36px;
+      border-radius: 5px;
+      background-color: var(--bg-vote-grey);
+      margin-left: 5px;
+    }
   }
 }
 
