@@ -1,0 +1,24 @@
+.spinner-box {
+    display: flex;
+    justify-content: center;
+}
+
+.none {
+    display: none;
+}
+
+
+.spinner-box__img {
+    animation: spinner 3s linear infinite;
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
