@@ -1,0 +1,179 @@
+.film-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--main);
+  padding: 40px 20px;
+  gap: 20px;
+  font-weight: 500;
+  max-width: 440px;
+  background-color: white;
+  position: relative;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    gap: 70px;
+    align-items: flex-start;
+    padding: 40px 70px 40px 40px;
+
+    max-width: 700px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 805px;
+    height: 560px;
+    gap: 15px;
+    padding: 40px 10px;
+  }
+}
+
+.icon-close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  fill: black;
+  cursor: pointer;
+}
+
+.image {
+  width: 240px;
+  height: 360px;
+  border-radius: 5px;
+  overflow: hidden;
+
+  @media screen and (min-width: 768px) {
+    flex-basis: 265px;
+    height: 100%;
+  }
+
+  @media screen and (min-width: 1280px) {
+    flex-basis: 375px;
+    height: 480px;
+  }
+
+  &__picture {
+    width: 100%;
+  }
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 240px;
+
+  @media screen and (min-width: 768px) {
+    flex-basis: 265px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    flex-basis: 390px;
+  }
+
+  &__title {
+    font-size: 20px;
+  }
+}
+
+.description-list {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  list-style: none;
+  font-size: 12px;
+
+  &__values {
+    display: flex;
+    list-style: none;
+  }
+
+  &__title {
+    width: 50%;
+    color: var(--text-modal-card);
+  }
+
+  &__value {
+    display: flex;
+    width: 50%;
+    line-height: 1.3;
+
+    &--vote-orange {
+      text-align: center;
+      color: white;
+      border-radius: 5px;
+      background-color: var(--bg-btn-accent);
+      margin-right: 5px;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    &--vote-grey {
+      text-align: center;
+      border-radius: 5px;
+      background-color: var(--bg-vote-grey);
+      margin-left: 5px;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+}
+
+.film-about {
+  font-size: 12px;
+  &__header {
+    margin-bottom: 10px;
+  }
+
+  &__text {
+    line-height: 1.67;
+  }
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+  @media screen and (min-width: 1280px) {
+    margin-left: 10px;
+  }
+}
+
+.modal {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+
+  @media screen and (min-width: 768px) {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.overlay {
+  opacity: 0;
+  visibility: hidden;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 20;
+  transition: 0.3s all;
+}
+
+.modal.active,
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.no-scroll {
+  overflow: hidden;
+}

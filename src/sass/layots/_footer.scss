@@ -39,7 +39,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 1.14;
-
+  cursor: pointer;
   @media screen and (min-width: 768px) {
     padding: 0px;
     font-size: 16px;
@@ -54,4 +54,30 @@
 .footer-list-ico {
   padding: 0;
   margin: 0 10px 0 10px;
+}
+.teem-modal {
+  background-color: rgb(125, 36, 36);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 940px;
+  padding: 48px 20px;
+  @media screen and (min-width: 768px) {
+    padding: 40px 36px;
+    width: 704px;
+    height: 522px;
+  }
+  @media screen and (min-width: 1280px) {
+    padding: 40px 12px;
+    width: 806x;
+    height: 558px;
+  }
+}
+.team-modal__btn--close {
+  z-index: 2;
+  position: absolute;
+  top: 16px;
+  right: 16px;
 }

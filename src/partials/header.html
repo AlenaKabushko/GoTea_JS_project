@@ -1,15 +1,26 @@
 <header class="header">
     <div class="container">
         <nav class="header__navigation">
-            <a href="index.html" class="header__logo"><span class="header__span">Filmoteka</span></a>
+            <a href="index.html" class="header__logo">
+                <svg class="header__logo-icon">
+                    <use href="./images/symbol-defs.svg#icon-film"></use>
+                </svg>
+                <span class="header__span">Filmoteka</span></a>
             <ul class="header__navigation-list">
+                <li class="header__navigation-item"><a class="header__navigation-link" href="">Log in</a></li>
                 <li class="header__navigation-item"><a class="header__navigation-link is-active-page" href="index.html">Home</a></li>
                 <li class="header__navigation-item"><a class="header__navigation-link" href="library.html">My library</a></li>
             </ul>
         </nav>
         <form action="" class="header__form">
-            <input type="text" class="header__form-input" placeholder="Movie search">
-            <button type="submit" class="header__form-button">:)</button>
+            <div class="header__form-block">
+                <input type="text" class="header__form-input" placeholder="Movie search">
+            <button type="submit" class="header__form-button">
+                <svg class="header__form-icon">
+                    <use href="./images/symbol-defs.svg#icon-search-2"></use>
+                </svg></button>
+            </div>
         </form>
+        <p class="header__text-warning">Search result not successful. Enter the correct movie name and </p>
     </div>
 </header>
