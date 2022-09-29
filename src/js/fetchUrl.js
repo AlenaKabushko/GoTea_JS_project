@@ -1,4 +1,5 @@
 ﻿import axios from 'axios';
+import { spinnerOn, spinnerOff } from './spinner';
 
 // для добавления кликов по отрендеренным карточкам
 import { setGalleryClickListeners } from './gallery-card-modal';
@@ -54,6 +55,7 @@ export let requestData = {
 
 //функция получения данных с сервера
 export const getServerData = async (type = requestTypes.TRENDING) => {
+  spinnerOn();
   requestData.movies = null;
   switch (type) {
     case requestTypes.TRENDING: {
@@ -180,6 +182,9 @@ export function renderMoviesMarkup(movies) {
 
   //устанавливаем обработчики кликов по карточкам
   setGalleryClickListeners();
+
+  spinnerOff();
+
 }
 
 function createMoviesListMarkup(movies) {
