@@ -1,5 +1,5 @@
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -7,22 +7,33 @@ h2,
 h3,
 p,
 ul {
-    margin: 0px;
-    padding: 0px;
+  margin: 0px;
+  padding: 0px;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;    
-    color: var(--text-main);
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  color: var(--text-main);
 }
 
 .list {
-    list-style-type: none;
-    padding-left: 0px;
+  list-style-type: none;
+  padding-left: 0px;
 }
 
 .no-scroll {
-    overflow: hidden;
+  overflow: hidden;
 }
-
+.backdrop {
+  position: fixed;
+  transition: opacity 250ms, visibility 250ms;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.56);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
