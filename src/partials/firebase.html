@@ -1,18 +1,29 @@
-<button type="button">Register / Log in</button>
-<form>
-    <label>
-        Name
-        <input id="username" type="name" name="username" />
-    </label>
-    <label>
-        Email
-        <input id="email" type="email" name="email" />
-    </label>
-    <label>
-        Password
-        <input id="password" type="password" name="password" />
-    </label>
+<!-- <button type="button">Register / Log in</button> -->
+<div class="auth">
 
-    <button id="signin" type="submit">Submit</button>
+    <div class="reg-container">
+        <h2>Register</h2>
+        <form class="reg-form">
+        
+            <input class="reg-form__name" type="text" name="username" placeholder="Username" />
+        
+            <input class="reg-form__email" type="email" name="email" placeholder="E-mail" />
+        
+            <input class="reg-form__password" type="password" name="password" placeholder="Password" />
+        
 
-</form>
+        <button id="register" type="submit">Register</button>
+
+    <form>
+    </div>
+    <div class="or"><p>OR</p></div>
+    <div class="login-container">
+        <h2>Log in</h2>
+        <form class="login-form">
+        <input type="email" name="email" placeholder="E-mail" />
+        
+        <input type="password" name="password" placeholder="Password" />
+        <button id="login" type="submit">Log in</button>
+        </form>
+    </div>
+</div>
