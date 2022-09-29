@@ -1,6 +1,6 @@
 .footer {
-  background-color: #f7f7f7;
-  color: var(--text-additional-footer);
+  background-color: $bg-vote-grey;
+  color: $text-additional-footer;
   font-family: 'Roboto';
 
   font-weight: 400;
@@ -35,7 +35,7 @@
   background-color: transparent;
   border-color: transparent;
   font-family: 'Roboto';
-  color: var(--text-additional-footer);
+  color: $text-additional-footer;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.14;
@@ -48,7 +48,7 @@
 
   &:hover,
   &:focus {
-    color: var(--text-accent);
+    color: $text-accent;
   }
 }
 .footer-list-ico {
