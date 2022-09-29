@@ -1,2 +1,2 @@
 import './js/fetchUrl';
-import './js/storageApi';
+import './js/localstorage';

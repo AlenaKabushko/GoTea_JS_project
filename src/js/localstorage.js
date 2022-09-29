@@ -2,7 +2,7 @@ const load = key => {
   try {
     let serializedState = localStorage.getItem(key);
 
-    return serializedState === null ? undefined : JSON.parse(serializedState);
+    return (serializedState = JSON.parse(serializedState) || undefined);
   } catch (error) {
     console.error('Get state error: ', error.message);
   }
@@ -25,4 +25,4 @@ const remove = key => {
   }
 };
 
-export { load, save, remove };
+export { load, save, remove }
