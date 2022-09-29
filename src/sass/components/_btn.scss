@@ -11,16 +11,16 @@
   text-transform: uppercase;
   cursor: pointer;
 
-  color: var(--text-secondary);
+  color: $text-secondary;
 }
 
 .btn-watch {
-  background-color: var(--bg-btn-accent);
+  background-color: $bg-btn-accent;
   border-color: transparent;
 }
 
 .btn-watch-modal {
-  background-color: var(--bg-btn-accent);
+  background-color: $bg-btn-accent;
   border-color: transparent;
   width: 110px;
   @media screen and (min-width: 768px) {
@@ -29,9 +29,9 @@
 }
 
 .btn-queue-modal {
-  background-color: var(--bg-btn-modal);
-  border: 1px solid var(--main);
-  color: var(--main);
+  background-color: $bg-btn-modal;
+  border: 1px solid $main;
+  color: $main;
   width: 110px;
   @media screen and (min-width: 768px) {
     width: 125px;
@@ -40,5 +40,5 @@
 
 .btn-queue {
   background-color: transparent;
-  border: 1px solid var(--bg-btn-modal);
+  border: 1px solid $bg-btn-modal;
 }

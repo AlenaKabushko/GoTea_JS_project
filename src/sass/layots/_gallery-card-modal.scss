@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: var(--main);
+  color: $main;
   padding: 40px 20px;
   gap: 20px;
   font-weight: 500;
@@ -89,7 +89,7 @@
 
   &__title {
     width: 50%;
-    color: var(--text-modal-card);
+    color: $text-modal-card;
   }
 
   &__value {
@@ -101,7 +101,7 @@
       text-align: center;
       color: white;
       border-radius: 5px;
-      background-color: var(--bg-btn-accent);
+      background-color: $bg-btn-accent;
       margin-right: 5px;
       padding-left: 5px;
       padding-right: 5px;
@@ -110,7 +110,7 @@
     &--vote-grey {
       text-align: center;
       border-radius: 5px;
-      background-color: var(--bg-vote-grey);
+      background-color: $bg-vote-grey;
       margin-left: 5px;
       padding-left: 5px;
       padding-right: 5px;
