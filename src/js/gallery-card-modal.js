@@ -1,5 +1,6 @@
 import { requestData, requestTypes, getServerData } from './fetchUrl';
 import { load, save, remove } from './localstorage';
+import { spinnerOff } from './spinner';
 
 const modalWindow = document.querySelector('.film-card');
 const overlay = document.querySelector('.overlay');
@@ -35,6 +36,8 @@ function onGalleryCardClick(event) {
   overlay.classList.add('active');
 
   btnClose.addEventListener('click', onButtonCloseClick);
+
+  spinnerOff();
 }
 
 function onEscapePress(event) {
@@ -76,6 +79,8 @@ function onBtnWatchTrailerClick(event) {
   overlay.style.zIndex = 40;
 
   btnTrailerClose.addEventListener('click', onBtnTrailerCloseClick);
+
+  spinnerOff();
 }
 
 function onBtnTrailerCloseClick(event) {
