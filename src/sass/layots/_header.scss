@@ -57,6 +57,23 @@
                 background-repeat: no-repeat;
     }
 }
+    &__button-fon {
+        position: absolute;
+        bottom: 20px;
+        right: 30px;
+        color: $text-secondary;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+    &__sun-button {
+        width: 35px;
+        height: 35px;
+        fill: $text-secondary;
+        &:hover {
+            scale: 1.1;
+        }
+    }
     &__span {
         display: none;
         @media screen and (min-width: 768px) {
