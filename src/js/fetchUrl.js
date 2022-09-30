@@ -20,6 +20,8 @@ export const requestTypes = {
   SEARCH: 'search',
   ID: 'id',
   VIDEO: 'video',
+  POPULAR: 'popular',
+  TOPRATED: 'toprated',
 };
 
 //глобальный объект с переменными, до которых надо иметь доступ с любого места
@@ -96,6 +98,20 @@ export const getServerData = async (type = requestTypes.TRENDING) => {
     case requestTypes.VIDEO: {
       const { data } = await axios.get(
         `/movie/${requestData.id}/videos?api_key=${API_KEY}`
+      );
+      return data;
+    }
+    case requestTypes.POPULAR: {
+      requestData.request = type;
+      const { data } = await axios.get(
+        `/movie/popular?api_key=${API_KEY}&page=${requestData.page}`
+      );
+      return data;
+    }
+    case requestTypes.TOPRATED: {
+      requestData.request = type;
+      const { data } = await axios.get(
+        `/movie/top_rated?api_key=${API_KEY}&page=${requestData.page}`
       );
       return data;
     }
@@ -179,6 +195,24 @@ getServerData(requestTypes.GENRE)
 // requestData.id = 718930;
 // getServerData(requestTypes.VIDEO).then(videos => {
 //   requestData.videos = videos.results;
+// });
+
+//-----------------------------------------------------------------------
+//запрос популярных данных и их отображение на сегодня
+//перед вызовом задаем номер страницу в глобальной переменной
+
+// requestData.page = 1;
+// getServerData(requestTypes.POPULAR).then(movies => {
+//   renderMoviesMarkup(movies);
+// });
+
+//-----------------------------------------------------------------------
+//запрос рейтинговых данных и их отображение
+//перед вызовом задаем номер страницу в глобальной переменной
+
+// requestData.page = 1;
+// getServerData(requestTypes.TOPRATED).then(movies => {
+//   renderMoviesMarkup(movies);
 // });
 
 //-----------------------------------------------------------------------
