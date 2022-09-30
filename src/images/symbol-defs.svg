@@ -28,5 +28,12 @@
 <symbol id="icon-close" viewBox="0 0 32 32">
 <path d="m8 8 14 14M8 22 22 8" stroke="#000" stroke-width="2"/>
 </symbol>
+<symbol id="sun" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></symbol>
+<symbol id="moon" x="0px" y="0px" viewBox="0 0 32 32">
+<path class="st0" d="M17,5c-0.27,0-0.54,0.02-0.8,0.04C19.05,6.55,21,9.55,21,13c0,4.97-4.03,9-9,9c-2.74,0-5.19-1.23-6.85-3.17
+	C6.04,24.59,11,29,17,29c6.63,0,12-5.37,12-12S23.63,5,17,5z"/><g><path class="st0" d="M11,9c-2.58,0.62-3.38,1.42-4,4c-0.62-2.58-1.42-3.38-4-4c2.58-0.62,3.38-1.42,4-4C7.62,7.58,8.42,8.38,11,9z"/></g>
+<line class="st0" x1="12" y1="14" x2="12" y2="16"/>
+<line class="st0" x1="11" y1="15" x2="13" y2="15"/>
+</symbol>
 </defs>
 </svg>

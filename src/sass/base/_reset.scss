@@ -22,16 +22,18 @@ body {
   font-weight: 500;
   color: $main;
 }
-
-main .container {
-  background-color: white;
-}
-
 .list {
   list-style-type: none;
   padding-left: 0px;
 }
-
+.day {
+  background-color: $text-secondary;
+  color: $main;
+}
+.night {
+  background-color: $main;
+  color: $text-secondary;
+}
 .no-scroll {
   overflow: hidden;
 }
