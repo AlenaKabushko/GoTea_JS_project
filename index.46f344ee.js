@@ -2864,5 +2864,5 @@ function(e=ct()){const t=st(e,"auth");return t.isInitialized()?t.getImmediate():
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */}));
-//# sourceMappingURL=index.50413913.js.map
+ */})),(()=>{const e=document.querySelector(".footer-btn"),t=document.querySelector(".team-modal__btn--close"),n=document.querySelector("[data-modal-teem]"),r=document.querySelector(".teem-modal");function i(){n.classList.toggle("visually-hidden"),r.classList.toggle("visually-hidden")}e.addEventListener("click",i),t.addEventListener("click",i),n.addEventListener("keydown",(e=>{"Escape"===e.code&&window.close()}))})();
+//# sourceMappingURL=index.46f344ee.js.map
