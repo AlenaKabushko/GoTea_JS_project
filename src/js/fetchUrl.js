@@ -3,6 +3,7 @@ import { spinnerOn, spinnerOff } from './spinner';
 
 // для добавления кликов по отрендеренным карточкам
 import { setGalleryClickListeners } from './gallery-card-modal';
+import { makePagination, makePaginationBtn } from './pagination';
 
 const refs = {
   filmsGallery: document.querySelector('.films-gallery'),
@@ -136,9 +137,15 @@ getServerData(requestTypes.GENRE)
   })
   .then(() => {
     requestData.page = 1;
-    getServerData(requestTypes.TRENDING).then(movies => {
-      renderMoviesMarkup(movies);
-    });
+    getServerData(requestTypes.TRENDING)
+      .then(movies => {
+        renderMoviesMarkup(movies);
+      })
+      .then(() => {
+        console.log(requestData.movies.total_pages);
+        makePaginationBtn(requestData.movies.total_pages)
+        makePagination(requestData.movies.total_pages, 20)
+      });
   });
 
 //-----------------------------------------------------------------------
