@@ -19,6 +19,9 @@ export const requestTypes = {
   DISCOVER: 'discover',
   SEARCH: 'search',
   ID: 'id',
+  VIDEO: 'video',
+  POPULAR: 'popular',
+  TOPRATED: 'toprated',
 };
 
 //глобальный объект с переменными, до которых надо иметь доступ с любого места
@@ -51,6 +54,9 @@ export let requestData = {
 
   //найденный объект по id
   movie: null,
+
+  //найденные видео для id
+  videos: null,
 };
 
 //функция получения данных с сервера
@@ -89,6 +95,26 @@ export const getServerData = async (type = requestTypes.TRENDING) => {
       );
       return data;
     }
+    case requestTypes.VIDEO: {
+      const { data } = await axios.get(
+        `/movie/${requestData.id}/videos?api_key=${API_KEY}`
+      );
+      return data;
+    }
+    case requestTypes.POPULAR: {
+      requestData.request = type;
+      const { data } = await axios.get(
+        `/movie/popular?api_key=${API_KEY}&page=${requestData.page}`
+      );
+      return data;
+    }
+    case requestTypes.TOPRATED: {
+      requestData.request = type;
+      const { data } = await axios.get(
+        `/movie/top_rated?api_key=${API_KEY}&page=${requestData.page}`
+      );
+      return data;
+    }
   }
 };
 
@@ -109,7 +135,6 @@ getServerData(requestTypes.GENRE)
     return true;
   })
   .then(() => {
-    //и массива объектов с отображением
     requestData.page = 1;
     getServerData(requestTypes.TRENDING).then(movies => {
       renderMoviesMarkup(movies);
@@ -117,7 +142,7 @@ getServerData(requestTypes.GENRE)
   });
 
 //-----------------------------------------------------------------------
-//Следующие пять функции перенесутся в нужные файлы
+//Следующие функции перенесутся в нужные файлы
 //Пока здесь для наглядности
 //-----------------------------------------------------------------------
 //запрос всех данных и их отображение на сегодня
@@ -153,14 +178,41 @@ getServerData(requestTypes.GENRE)
 //-----------------------------------------------------------------------
 //запрос данных по ID
 //перед вызовом необходимо записать ID в глобальную переменную
-//пока только сохраняет в глобальной переменной
-//будет сделано рендеринг - добавится
+//только сохраняет в глобальной переменной
 
 // requestData.id = 1006851;
 // getServerData(requestTypes.ID).then(movie => {
 //   //формирование строки жанров
 //   setMovieGenresNames(movie);
 //   requestData.movie = movie;
+// });
+
+//-----------------------------------------------------------------------
+//запрос video по ID
+//перед вызовом необходимо записать ID в глобальную переменную
+//только сохраняет в глобальной переменной
+
+// requestData.id = 718930;
+// getServerData(requestTypes.VIDEO).then(videos => {
+//   requestData.videos = videos.results;
+// });
+
+//-----------------------------------------------------------------------
+//запрос популярных данных и их отображение на сегодня
+//перед вызовом задаем номер страницу в глобальной переменной
+
+// requestData.page = 1;
+// getServerData(requestTypes.POPULAR).then(movies => {
+//   renderMoviesMarkup(movies);
+// });
+
+//-----------------------------------------------------------------------
+//запрос рейтинговых данных и их отображение
+//перед вызовом задаем номер страницу в глобальной переменной
+
+// requestData.page = 1;
+// getServerData(requestTypes.TOPRATED).then(movies => {
+//   renderMoviesMarkup(movies);
 // });
 
 //-----------------------------------------------------------------------
@@ -184,7 +236,6 @@ export function renderMoviesMarkup(movies) {
   setGalleryClickListeners();
 
   spinnerOff();
-
 }
 
 function createMoviesListMarkup(movies) {
