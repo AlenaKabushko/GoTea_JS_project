@@ -2,10 +2,7 @@ import { requestData } from './fetchUrl';
 import { load, save, remove } from './localstorage';
 const modalWindow = document.querySelector('.film-card');
 const overlay = document.querySelector('.overlay');
-
-document.querySelector('.icon-close').addEventListener('click', () => {
-  closeWindow();
-});
+const btnClose = document.querySelector('.icon-close');
 
 function setGalleryClickListeners() {
   const filmCards = document.querySelectorAll('.films-gallery__item');
@@ -13,22 +10,12 @@ function setGalleryClickListeners() {
     filmCard.addEventListener('click', onGalleryCardClick)
   );
 
-  document.body.addEventListener(
-    'keydown',
-    function (e) {
-      const key = e.code;
+  document.body.addEventListener('keydown', onEscapePress, false);
 
-      if (key === 'Escape') {
-        closeWindow();
-      }
-    },
-    false
-  );
-
-  overlay.addEventListener('click', () => {
-    closeWindow();
-  });
+  overlay.addEventListener('click', onOverlayClick);
 }
+
+// --> Обработчики событий
 
 function onGalleryCardClick(event) {
   event.preventDefault();
@@ -43,6 +30,24 @@ function onGalleryCardClick(event) {
 
   modalWindow.classList.add('active');
   overlay.classList.add('active');
+
+  btnClose.addEventListener('click', onButtonCloseClick);
+}
+
+function onEscapePress(event) {
+  const key = event.code;
+
+  if (key === 'Escape') {
+    closeWindow();
+  }
+}
+
+function onButtonCloseClick(event) {
+  closeWindow();
+}
+
+function onOverlayClick(event) {
+  closeWindow();
 }
 
 function renderDataToModalCard(cardNode) {
@@ -86,7 +91,9 @@ function renderDataToModalCard(cardNode) {
         <ul class="description-list__values">
           <li class="description-list__title">Vote / Votes</li>
           <li class="description-list__value">
-            <span class="description-list__value--vote-orange">${vote_average}</span>
+            <span class="description-list__value--vote-orange">${vote_average.toFixed(
+              1
+            )}</span>
             /
             <span class="description-list__value--vote-grey">${vote_count}</span>
           </li>
@@ -107,7 +114,9 @@ function renderDataToModalCard(cardNode) {
       <li class="description-list__item">
         <ul class="description-list__values">
           <li class="description-list__title">Genre</li>
-          <li class="description-list__value">${genre_ids}</li>
+          <li class="description-list__value">${
+            genre_ids.split(',').length > 3 ? 'Other' : genre_ids
+          }</li>
         </ul>
       </li>
     </ul>
@@ -254,8 +263,14 @@ function removeOldMarkup() {
 
 function closeWindow() {
   modalWindow.classList.remove('active');
-  overlay.classList.remove('active');
   modalWindow.style.top = '50%';
+
+  overlay.classList.remove('active');
+  overlay.removeEventListener('click', onOverlayClick);
+
+  document.body.removeEventListener('keydown', onEscapePress);
+
+  btnClose.removeEventListener('click', onButtonCloseClick);
 }
 
 // ..............Watch / Queue
