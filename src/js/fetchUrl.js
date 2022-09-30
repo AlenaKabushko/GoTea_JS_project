@@ -316,3 +316,6 @@ function setGenresNames(movies, genresList) {
     movie.genre_ids = genresIdsList.join(', ');
   });
 }
+
+
+// --------------------------
