@@ -1,8 +1,11 @@
-import { requestData } from './fetchUrl';
+import { requestData, requestTypes, getServerData } from './fetchUrl';
 import { load, save, remove } from './localstorage';
+
 const modalWindow = document.querySelector('.film-card');
 const overlay = document.querySelector('.overlay');
 const btnClose = document.querySelector('.icon-close');
+const modalTrailer = document.querySelector('.trailer');
+const btnTrailerClose = document.querySelector('.icon-video-close');
 
 function setGalleryClickListeners() {
   const filmCards = document.querySelectorAll('.films-gallery__item');
@@ -47,10 +50,51 @@ function onButtonCloseClick(event) {
 }
 
 function onOverlayClick(event) {
+  const iframeMarkup = modalTrailer.querySelector('#ytplayer');
+  if (iframeMarkup) {
+    closeTrailerWindow();
+    return;
+  }
   closeWindow();
 }
 
-function renderDataToModalCard(cardNode) {
+function onBtnWatchTrailerClick(event) {
+  const markup = `
+  <iframe id="ytplayer" type="text/html" 
+    src="http://www.youtube.com/embed/${event.target.dataset.trailerId}?autoplay=1&origin=https://alenakabushko.github.io/GoTea_JS_project/"
+  frameborder="0"/>
+  `;
+
+  const iframeMarkup = modalTrailer.querySelector('#ytplayer');
+  if (iframeMarkup) {
+    iframeMarkup.remove();
+  }
+
+  modalTrailer.insertAdjacentHTML('afterbegin', markup);
+
+  modalTrailer.classList.add('active');
+  overlay.style.zIndex = 40;
+
+  btnTrailerClose.addEventListener('click', onBtnTrailerCloseClick);
+}
+
+function onBtnTrailerCloseClick(event) {
+  closeTrailerWindow();
+}
+
+async function getMovieTrailer(movieId) {
+  requestData.id = movieId;
+  const { results } = await getServerData(requestTypes.VIDEO);
+  const trailerObj = results.find(element => element.type === 'Trailer');
+  console.log(trailerObj);
+  if (trailerObj) {
+    return trailerObj.key;
+  } else {
+    return undefined;
+  }
+}
+
+async function renderDataToModalCard(cardNode) {
   const movie = requestData.movies.results.find(
     element => element.id == cardNode.attributes.key.value
   );
@@ -59,6 +103,8 @@ function renderDataToModalCard(cardNode) {
     console.log('НЕ УДАЛОСЬ НАЙТИ ФИЛЬМ В ДАННЫХ ПО ID!!!');
     return;
   }
+
+  const trailerID = await getMovieTrailer(movie.id);
 
   const {
     id,
@@ -133,12 +179,24 @@ function renderDataToModalCard(cardNode) {
       <button type="button" class="btn btn-queue-modal" id="btn-to-queue" data-id ="${id}">
        ADD TO QUEUE
       </button>
-    </div>  
+      ${
+        trailerID
+          ? '<button type="button" class="btn btn-queue-modal" id="btn-watch-trailer" data-trailer-id=' +
+            trailerID +
+            '>WATCH TRAILER</button>'
+          : ''
+      }
+    </div>
   </div>
   `;
 
   removeOldMarkup();
   modalWindow.insertAdjacentHTML('afterbegin', markup);
+
+  const btnWatchTrailer = document.querySelector('#btn-watch-trailer');
+  if (btnWatchTrailer) {
+    btnWatchTrailer.addEventListener('click', onBtnWatchTrailerClick);
+  }
 
   // ..............Watch / Queue
 
@@ -271,6 +329,15 @@ function closeWindow() {
   document.body.removeEventListener('keydown', onEscapePress);
 
   btnClose.removeEventListener('click', onButtonCloseClick);
+}
+
+function closeTrailerWindow() {
+  modalTrailer.classList.remove('active');
+  const iframeMarkup = modalTrailer.querySelector('#ytplayer');
+  if (iframeMarkup) {
+    iframeMarkup.remove();
+  }
+  overlay.style.zIndex = 20;
 }
 
 // ..............Watch / Queue
