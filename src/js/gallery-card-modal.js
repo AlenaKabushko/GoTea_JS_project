@@ -61,7 +61,7 @@ function onOverlayClick(event) {
 function onBtnWatchTrailerClick(event) {
   const markup = `
   <iframe id="ytplayer" type="text/html" 
-    src="http://www.youtube.com/embed/${event.target.dataset.trailerId}?autoplay=1&origin=https://alenakabushko.github.io/GoTea_JS_project/"
+    src="https://www.youtube.com/embed/${event.target.dataset.trailerId}?autoplay=1&origin=https://alenakabushko.github.io/GoTea_JS_project/"
   frameborder="0"/>
   `;
 
