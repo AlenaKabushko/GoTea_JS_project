@@ -309,6 +309,9 @@ function setGenresNames(movies, genresList) {
       //пищем на то же место массива вместо числа название
       array[index] = genresList[idx].name;
     });
+    if (genresIdsList.length > 2) {
+              genresIdsList.splice(2, genresIdsList.length - 1, 'Other');
+            }
     //сольем в одну строку и запишем вместо массива чисел строку
     movie.genre_ids = genresIdsList.join(', ');
   });
