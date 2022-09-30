@@ -4,7 +4,7 @@ import { spinnerOff } from './spinner';
 
 const modalWindow = document.querySelector('.film-card');
 const overlay = document.querySelector('.overlay');
-const btnClose = document.querySelector('.icon-close');
+const btnClose = document.querySelector('.icon-card-close');
 const modalTrailer = document.querySelector('.trailer');
 const btnTrailerClose = document.querySelector('.icon-video-close');
 
@@ -33,6 +33,8 @@ function onGalleryCardClick(event) {
   document.body.addEventListener('keydown', onEscapePress, false);
   overlay.addEventListener('click', onOverlayClick);
 
+  console.log(btnClose);
+
   spinnerOff();
 }
 
@@ -50,6 +52,7 @@ function onEscapePress(event) {
 }
 
 function onButtonCloseClick(event) {
+  console.log(event);
   closeWindow();
 }
 

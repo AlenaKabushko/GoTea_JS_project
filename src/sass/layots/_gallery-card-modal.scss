@@ -30,13 +30,16 @@
   }
 }
 
-.icon-close,
+.icon-card-close,
 .icon-video-close {
   position: absolute;
   top: 5px;
   right: 5px;
   fill: black;
   cursor: pointer;
+  &:hover {
+    fill: $bg-btn-accent;
+  }
 }
 
 .image {
