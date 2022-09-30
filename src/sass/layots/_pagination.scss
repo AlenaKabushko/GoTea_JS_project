@@ -1,0 +1,23 @@
+.pagination-list {
+
+}
+
+.pagination {
+    display: flex;
+justify-content: center;
+flex-wrap: wrap;
+background-color: $text-secondary;
+}
+
+.pagination-list__item {
+    padding: 8px;
+    margin: 8px;
+    cursor: pointer;
+    color: $main;
+    list-style-type: none;
+
+    &:active {
+        font-weight: 800;
+        color: gold;
+    }
+}
