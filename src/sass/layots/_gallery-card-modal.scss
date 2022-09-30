@@ -27,7 +27,8 @@
   }
 }
 
-.icon-close {
+.icon-close,
+.icon-video-close {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -132,6 +133,7 @@
 .buttons {
   display: flex;
   gap: 20px;
+  flex-wrap: wrap;
   @media screen and (min-width: 1280px) {
     margin-left: 10px;
   }
@@ -169,11 +171,50 @@
 }
 
 .modal.active,
-.overlay.active {
+.overlay.active,
+.trailer.active {
   opacity: 1;
   visibility: visible;
 }
 
 .no-scroll {
   overflow: hidden;
+}
+
+.trailer {
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding-top: 35px;
+  width: 320px;
+  height: 280px;
+
+  @media screen and (min-width: 768px) {
+    width: 720px;
+    height: 390px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 1080px;
+    height: 790px;
+  }
+}
+
+iframe {
+  width: 320px;
+  height: 100%;
+  @media screen and (min-width: 768px) {
+    width: 720px;
+    height: 360px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 1080px;
+    height: 760px;
+  }
 }

@@ -12,9 +12,19 @@ ul {
 }
 
 body {
+  background-image: url(./../images/1619301750_36-phonoteka_org-p-fon-kinoteatr-45\ \(1\).jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
   color: $main;
+}
+
+main .container {
+  background-color: white;
 }
 
 .list {
@@ -27,13 +37,10 @@ body {
 }
 .backdrop {
   position: fixed;
-  transition: opacity 250ms, visibility 250ms;
+  transition: opacity 0.25s, visibility 0.25s;
   top: 0;
-  background-color: rgba(0, 0, 0, 0.56);
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 1;
+  background-color: rgba(0, 0, 0, 0.56);
 }
