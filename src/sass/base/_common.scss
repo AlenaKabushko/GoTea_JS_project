@@ -1,21 +1,23 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
 
 .container {
-    padding-left: 20px;
-    padding-right: 20px;
-    margin: 0 auto;
-@media (max-width: 479px) {
-    max-width: 480px;
-}
-    @media (min-width: 480px) {
-        width: 480px;
-    }
-    @media (min-width: 768px) {
-        width: 768px;
-        padding-left: 32px;
-        padding-right: 32px;
-    }    
-    @media (min-width: 1280px) {
-        width: 1280px;
-    }
+  width: 480px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media screen and (max-width: 480px) {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 768px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 1280px;
+  }
 }

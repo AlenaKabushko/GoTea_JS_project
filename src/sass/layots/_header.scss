@@ -1,34 +1,41 @@
 .header {
     padding-top: 40px;
-    padding-bottom: 44px;
+    height: 230px;
+    min-width: 320px;
     margin-left: auto;
     margin-right: auto;
-    width: 480px;
-    background-image: url('./../images/header-mob-1x.jpg');
+    background:rgba(0, 0, 0, 1) url('./../images/header-mob-1x.png');
+    opacity: 0.9;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     @media (min-device-pixel-ratio: 2),
   (min-resolution: 192dpi),
   (min-resolution: 2dppx) {
-        background-image: url('./../images/header-mob-2x.jpg');
+    background:rgba(0, 0, 0, 1) url('./../images/header-mob-2x.png');
+        opacity: 0.9;
         background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
     }
+    @media screen and (min-width: 480px) {
+        width: 480px;
+    }
 
     @media screen and (min-width: 768px) {
         
-        padding-bottom: 81px;
+        height: 216px;
         width: 768px;
-            background-image: url('./../images/header-tabl-1x.jpg');
+            
+            background:rgba(0, 0, 0, 1) url('./../images/header-tabl-1x.png');
+            opacity: 0.9;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             @media (min-device-pixel-ratio: 2),
                     (min-resolution: 192dpi),
                     (min-resolution: 2dppx) {
-                background-image: url('./../images/header-tabl-2x.jpg');
+                background:rgba(0, 0, 0, 1) url('./../images/header-tabl-2x.png');
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -36,15 +43,14 @@
 }
     @media screen and (min-width: 1280px) {
             width: 1280px;
-            background-image: 
-        url('./../images/header-desk-1x.jpg');
+            background:rgba(0, 0, 0, 1) url('./../images/header-desk-1x.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             @media (min-device-pixel-ratio: 2),
                     (min-resolution: 192dpi),
                     (min-resolution: 2dppx) {
-                background-image: url('./../images/header-desk-2x.jpg');
+                background:rgba(0, 0, 0, 1) url('./../images/header-desk-2x.png');
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -57,6 +63,7 @@
         color: $text-secondary;
         font-size: 30px;
         line-height: 1.16;
+        
         }
     }
     &__logo {
@@ -66,9 +73,18 @@
         &-icon {
             width: 24px;
             height: 24px;
+            animation-name: turnOver;
+            animation-duration: 3000ms;
+            animation-timing-function: cubic-bezier(0,.98,1,.01);
+            animation-iteration-count: infinite;
+            
             @media screen and (min-width: 768px) {
                 margin-right: 8px;
             }
+            
+        }
+        &:hover {
+            scale: 1.05;
         }
     }
     &__navigation {
@@ -82,6 +98,26 @@
             display: flex;
             justify-content: space-between;
             list-style: none;
+        }
+        &-button {
+            outline: none;
+            border: none;
+            color: $text-secondary;
+            background-color: $current-page;
+            font-size: 12px;
+            line-height: 1.16;
+            font-weight: 500;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 1px;
+            padding-top: 3px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: box-shadow 250ms linear;
+            &:hover {
+                box-shadow: 0px 5px 35px $current-page;
+            }
         }
         &-link {
             text-decoration: none;
@@ -136,6 +172,11 @@
             border: none;
             outline: none;
             background-color: transparent;
+            cursor: pointer;
+            
+            &:hover {
+                scale: 1.5;
+            }
         }
         &-icon {
             width: 12px;
@@ -164,10 +205,10 @@
 .header {
 &-library-bg {
     padding-top: 40px;
-    padding-bottom: 60px;
+    height: 230px;
     margin-left: auto;
     margin-right: auto;
-    width: 480px;
+    min-width: 320px;
     background: linear-gradient(180deg,
     rgba(0, 0, 0, 0.56),
     rgba(0, 0, 0, 0.56)), 
@@ -186,9 +227,11 @@
     background-position: center;
     background-repeat: no-repeat;
   }
+   @media screen and (min-width: 480px) {
+        width: 480px;
+    }
   @media screen and (min-width: 768px) {
-        
-        padding-bottom: 81px;
+        height: 219px;
         width: 768px;
             background: linear-gradient(180deg,
     rgba(0, 0, 0, 0.56),
@@ -208,6 +251,7 @@
     }
 }
     @media screen and (min-width: 1280px) {
+        height: 216px;
             width: 1280px;
             background: linear-gradient(180deg,
     rgba(0, 0, 0, 0.56),
@@ -226,6 +270,7 @@
                 background-position: center;
                 background-repeat: no-repeat;
     }
+    
 }
 }
 &__library-buttons {
@@ -240,4 +285,15 @@
         margin-left: 16px;
     }
 }
+}
+
+@keyframes turnOver {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+  
 }
