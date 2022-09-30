@@ -13,13 +13,7 @@ function setGalleryClickListeners() {
   filmCards.forEach(filmCard =>
     filmCard.addEventListener('click', onGalleryCardClick)
   );
-
-  document.body.addEventListener('keydown', onEscapePress, false);
-
-  overlay.addEventListener('click', onOverlayClick);
 }
-
-// --> Обработчики событий
 
 function onGalleryCardClick(event) {
   event.preventDefault();
@@ -28,7 +22,7 @@ function onGalleryCardClick(event) {
 
   renderDataToModalCard(cardNode);
 
-  if (window.matchMedia('(max-width: 768px)').matches) {
+  if (window.matchMedia('(max-width: 767px)').matches) {
     modalWindow.style.top = window.pageYOffset + 'px';
   }
 
@@ -36,6 +30,8 @@ function onGalleryCardClick(event) {
   overlay.classList.add('active');
 
   btnClose.addEventListener('click', onButtonCloseClick);
+  document.body.addEventListener('keydown', onEscapePress, false);
+  overlay.addEventListener('click', onOverlayClick);
 
   spinnerOff();
 }
@@ -44,6 +40,11 @@ function onEscapePress(event) {
   const key = event.code;
 
   if (key === 'Escape') {
+    const iframeMarkup = modalTrailer.querySelector('#ytplayer');
+    if (iframeMarkup) {
+      closeTrailerWindow();
+      return;
+    }
     closeWindow();
   }
 }
@@ -91,7 +92,6 @@ async function getMovieTrailer(movieId) {
   requestData.id = movieId;
   const { results } = await getServerData(requestTypes.VIDEO);
   const trailerObj = results.find(element => element.type === 'Trailer');
-  console.log(trailerObj);
   if (trailerObj) {
     return trailerObj.key;
   } else {
