@@ -62,7 +62,7 @@ export let requestData = {
 //функция получения данных с сервера
 export const getServerData = async (type = requestTypes.TRENDING) => {
   spinnerOn();
-  requestData.movies = null;
+  //requestData.movies = null;
   switch (type) {
     case requestTypes.TRENDING: {
       requestData.request = type;
@@ -310,12 +310,11 @@ function setGenresNames(movies, genresList) {
       array[index] = genresList[idx].name;
     });
     if (genresIdsList.length > 2) {
-              genresIdsList.splice(2, genresIdsList.length - 1, 'Other');
-            }
+      genresIdsList.splice(2, genresIdsList.length - 1, 'Other');
+    }
     //сольем в одну строку и запишем вместо массива чисел строку
     movie.genre_ids = genresIdsList.join(', ');
   });
 }
-
 
 // --------------------------
