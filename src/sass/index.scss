@@ -1,11 +1,13 @@
 @import './base/common';
-@import './base/reset';
 @import './utils/var';
+@import './base/reset';
+
 @import './utils/hidden';
 @import './components/btn';
 
 @import './layots/header';
 @import './layots/main';
+@import './layots/spinner';
 @import './layots/footer';
 @import './layots/gallery-card-modal';
 @import './layots/firebase';

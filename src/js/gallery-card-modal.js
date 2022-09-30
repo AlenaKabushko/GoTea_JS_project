@@ -1,11 +1,8 @@
 import { requestData } from './fetchUrl';
-
+import { load, save, remove } from './localstorage';
 const modalWindow = document.querySelector('.film-card');
 const overlay = document.querySelector('.overlay');
-
-document.querySelector('.icon-close').addEventListener('click', () => {
-  closeWindow();
-});
+const btnClose = document.querySelector('.icon-close');
 
 function setGalleryClickListeners() {
   const filmCards = document.querySelectorAll('.films-gallery__item');
@@ -13,22 +10,12 @@ function setGalleryClickListeners() {
     filmCard.addEventListener('click', onGalleryCardClick)
   );
 
-  document.body.addEventListener(
-    'keydown',
-    function (e) {
-      const key = e.code;
+  document.body.addEventListener('keydown', onEscapePress, false);
 
-      if (key === 'Escape') {
-        closeWindow();
-      }
-    },
-    false
-  );
-
-  overlay.addEventListener('click', () => {
-    closeWindow();
-  });
+  overlay.addEventListener('click', onOverlayClick);
 }
+
+// --> Обработчики событий
 
 function onGalleryCardClick(event) {
   event.preventDefault();
@@ -43,6 +30,24 @@ function onGalleryCardClick(event) {
 
   modalWindow.classList.add('active');
   overlay.classList.add('active');
+
+  btnClose.addEventListener('click', onButtonCloseClick);
+}
+
+function onEscapePress(event) {
+  const key = event.code;
+
+  if (key === 'Escape') {
+    closeWindow();
+  }
+}
+
+function onButtonCloseClick(event) {
+  closeWindow();
+}
+
+function onOverlayClick(event) {
+  closeWindow();
 }
 
 function renderDataToModalCard(cardNode) {
@@ -56,6 +61,7 @@ function renderDataToModalCard(cardNode) {
   }
 
   const {
+    id,
     poster_path,
     title,
     vote_average,
@@ -85,7 +91,9 @@ function renderDataToModalCard(cardNode) {
         <ul class="description-list__values">
           <li class="description-list__title">Vote / Votes</li>
           <li class="description-list__value">
-            <span class="description-list__value--vote-orange">${vote_average}</span>
+            <span class="description-list__value--vote-orange">${vote_average.toFixed(
+              1
+            )}</span>
             /
             <span class="description-list__value--vote-grey">${vote_count}</span>
           </li>
@@ -106,7 +114,9 @@ function renderDataToModalCard(cardNode) {
       <li class="description-list__item">
         <ul class="description-list__values">
           <li class="description-list__title">Genre</li>
-          <li class="description-list__value">${genre_ids}</li>
+          <li class="description-list__value">${
+            genre_ids.split(',').length > 3 ? 'Other' : genre_ids
+          }</li>
         </ul>
       </li>
     </ul>
@@ -117,10 +127,10 @@ function renderDataToModalCard(cardNode) {
       </p>
     </div>
     <div class="buttons">
-      <button type="button" class="btn btn-watch-modal" id="btn-to-watched">
+      <button type="button" class="btn btn-watch-modal" id="btn-to-watched" data-id ="${id}">
         ADD TO WATCHED
       </button>
-      <button type="button" class="btn btn-queue-modal" id="btn-to-queue">
+      <button type="button" class="btn btn-queue-modal" id="btn-to-queue" data-id ="${id}">
        ADD TO QUEUE
       </button>
     </div>  
@@ -129,6 +139,115 @@ function renderDataToModalCard(cardNode) {
 
   removeOldMarkup();
   modalWindow.insertAdjacentHTML('afterbegin', markup);
+
+  // ..............Watch / Queue
+
+  textContentBtn(id);
+  const btnQueue = document.querySelector('#btn-to-queue');
+  const btnWatch = document.querySelector('#btn-to-watched');
+
+  btnQueue.addEventListener('click', addQueueList);
+  btnWatch.addEventListener('click', addWatchList);
+
+  function addWatchList() {
+    const btnWatch = document.querySelector('#btn-to-watched');
+    if (btnWatch.classList.contains('active')) {
+      removeFromWatchedList(id);
+    } else {
+      let watchList = [];
+      let localWatchListJson = load('watched');
+      if (localWatchListJson) {
+        watchList = [...localWatchListJson];
+      }
+
+      let queueList = [];
+      let localQueueListJson = load('queue');
+      if (localQueueListJson) {
+        queueList = [...localQueueListJson];
+      }
+      let queueSet = new Set(queueList);
+      if (queueSet.has(id)) {
+        remove('queue');
+        let index = queueList.indexOf(id);
+        queueList.splice(index, 1);
+        save('queue', queueList);
+      }
+
+      const watchSet = new Set(watchList);
+      if (watchSet.has(id)) {
+        textContentBtn(id);
+      } else {
+        watchList.push(id);
+        save('watched', watchList);
+        textContentBtn(id);
+      }
+    }
+  }
+
+  function removeFromWatchedList(id) {
+    let watchList = [];
+    let localWatchListJson = load('watched');
+    if (localWatchListJson) {
+      watchList = [...localWatchListJson];
+    }
+
+    remove('watched');
+    let index = watchList.indexOf(id);
+    watchList.splice(index, 1);
+    save('watched', watchList);
+
+    textContentBtn();
+  }
+
+  function removeFromQueueList(id) {
+    let queueList = [];
+    let localQueueListJson = load('queue');
+    if (localQueueListJson) {
+      queueList = [...localQueueListJson];
+    }
+
+    remove('queue');
+    let index = queueList.indexOf(id);
+    queueList.splice(index, 1);
+    save('queue', queueList);
+
+    textContentBtn();
+  }
+
+  function addQueueList() {
+    const btnQueue = document.querySelector('#btn-to-queue');
+    if (btnQueue.classList.contains('active')) {
+      removeFromQueueList(id);
+    } else {
+      let queueList = [];
+      let localQueueListJson = load('queue');
+      if (localQueueListJson) {
+        queueList = [...localQueueListJson];
+      }
+
+      let watchList = [];
+      let localWatchListJson = load('watched');
+      if (localWatchListJson) {
+        watchList = [...localWatchListJson];
+      }
+      let watchSet = new Set(watchList);
+      if (watchSet.has(id)) {
+        remove('watched');
+        let index = watchList.indexOf(id);
+        watchList.splice(index, 1);
+        save('watched', watchList);
+      }
+
+      const queueSet = new Set(queueList);
+      if (queueSet.has(id)) {
+        textContentBtn(id);
+      } else {
+        queueList.push(id);
+        save('queue', queueList);
+        textContentBtn(id);
+      }
+    }
+  }
 }
 
 function removeOldMarkup() {
@@ -144,8 +263,59 @@ function removeOldMarkup() {
 
 function closeWindow() {
   modalWindow.classList.remove('active');
-  overlay.classList.remove('active');
   modalWindow.style.top = '50%';
+
+  overlay.classList.remove('active');
+  overlay.removeEventListener('click', onOverlayClick);
+
+  document.body.removeEventListener('keydown', onEscapePress);
+
+  btnClose.removeEventListener('click', onButtonCloseClick);
+}
+
+// ..............Watch / Queue
+function inList(id, list) {
+  let arrList = [];
+  let localListJson = load(list);
+  if (localListJson) {
+    arrList = [...localListJson];
+  }
+  const listSet = new Set(arrList);
+  return listSet.has(id);
+}
+
+async function textContentBtn(id) {
+  const btnQueue = document.querySelector('#btn-to-queue');
+  const btnWatch = document.querySelector('#btn-to-watched');
+  if (inList(id, 'watched')) {
+    btnWatch.textContent = 'Added to watched';
+    btnWatch.disabled = true;
+    function changeText() {
+      btnWatch.disabled = false;
+      btnWatch.textContent = 'Remove from watched';
+      btnWatch.classList.add('active');
+    }
+    setTimeout(changeText, 500);
+  } else {
+    btnWatch.textContent = 'Add to watched';
+    btnWatch.classList.remove('active');
+    btnWatch.disabled = false;
+  }
+
+  if (inList(id, 'queue')) {
+    btnQueue.textContent = 'Added to queue';
+    btnQueue.disabled = true;
+    function changeText() {
+      btnQueue.disabled = false;
+      btnQueue.textContent = 'Remove from queue';
+      btnQueue.classList.add('active');
+    }
+    setTimeout(changeText, 500);
+  } else {
+    btnQueue.textContent = 'Add to queue';
+    btnQueue.classList.remove('active');
+    btnQueue.disabled = false;
+  }
 }
 
 export { setGalleryClickListeners };
