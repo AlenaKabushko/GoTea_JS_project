@@ -56,7 +56,7 @@
   margin: 0 10px 0 10px;
 }
 .teem-modal {
-  background-color: rgb(125, 36, 36);
+  background-color: $bg-btn-modal;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -80,4 +80,5 @@
   position: absolute;
   top: 16px;
   right: 16px;
+  cursor: pointer;
 }
