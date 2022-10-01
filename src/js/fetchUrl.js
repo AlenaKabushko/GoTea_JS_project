@@ -142,9 +142,9 @@ getServerData(requestTypes.GENRE)
         renderMoviesMarkup(movies);
       })
       .then(() => {
-        console.log(requestData.movies.total_pages);
-        makePaginationBtn(requestData.movies.total_pages)
-        makePagination(requestData.movies.total_pages, 20)
+        // console.log(requestData.movies.total_pages);
+        makePaginationBtn(requestData.movies.total_pages);
+        makePagination(requestData.movies.total_pages, 20);
       });
   });
 
@@ -300,7 +300,7 @@ export function setMovieGenresNames(movie) {
 //функция замены массива жанров на строку
 //параметры: массив объектов и массив соответствия номера жанра и названия
 function setGenresNames(movies, genresList) {
-  console.log(movies, genresList);
+  // console.log(movies, genresList);
   //по всем объектам
   movies.forEach(movie => {
     //усечение даты до года
