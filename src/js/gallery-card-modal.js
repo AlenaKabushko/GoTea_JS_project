@@ -33,7 +33,7 @@ function onGalleryCardClick(event) {
   document.body.addEventListener('keydown', onEscapePress, false);
   overlay.addEventListener('click', onOverlayClick);
 
-  console.log(btnClose);
+  // console.log(btnClose);
 
   spinnerOff();
 }
@@ -52,7 +52,7 @@ function onEscapePress(event) {
 }
 
 function onButtonCloseClick(event) {
-  console.log(event);
+  // console.log(event);
   closeWindow();
 }
 
@@ -108,7 +108,7 @@ async function renderDataToModalCard(cardNode) {
   );
 
   if (!movie) {
-    console.log('НЕ УДАЛОСЬ НАЙТИ ФИЛЬМ В ДАННЫХ ПО ID!!!');
+    // console.log('НЕ УДАЛОСЬ НАЙТИ ФИЛЬМ В ДАННЫХ ПО ID!!!');
     return;
   }
 
@@ -213,18 +213,49 @@ async function renderDataToModalCard(cardNode) {
   const btnWatch = document.querySelector('#btn-to-watched');
 
   btnQueue.addEventListener('click', addQueueList);
-  btnWatch.addEventListener('click', addWatchList);
+  btnWatch.addEventListener('click', onBtnAddToWatchedClick);
 
-  function addWatchList() {
-    let watchedMovieList = [];
-    watchedMovieList.push(movie);
-    console.log(watchedMovieList);
+  function onBtnAddToWatchedClick() {
+    let openedMovie = movie;
 
-    console.log('давай додамо у ватчед ');
+    btnWatch.innerHTML = 'remove from watched';
+
+    let watchedFilms = [];
+    watchedFilms = load('watched');
+
+    if (watchedFilms) {
+      const hasMovie = watchedFilms.find(
+        watchedFilm => watchedFilm.id === openedMovie.id
+      );
+      if (hasMovie) {
+        return;
+      }
+      watchedFilms.push(openedMovie);
+      save('watched', watchedFilms);
+    } else {
+      watchedFilms = [openedMovie];
+      save('watched', watchedFilms);
+    }
   }
 
   function addQueueList() {
-    console.log('давай додамо у чергу');
+    let openedMovie = movie;
+    let queuedFilms = [];
+    queuedFilms = load('queue');
+
+    if (queuedFilms) {
+      const hasMovie = queuedFilms.find(
+        queuedFilm => queuedFilm.id === openedMovie.id
+      );
+      if (hasMovie) {
+        return;
+      }
+      queuedFilms.push(openedMovie);
+      save('queue', queuedFilms);
+    } else {
+      queuedFilms = [openedMovie];
+      save('queue', queuedFilms);
+    }
   }
 
   // function addWatchList() {
