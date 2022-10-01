@@ -21,9 +21,10 @@ export function makePaginationBtn(page) {
     paginationItem.innerText = page
     paginationItem.classList.add('pagination-list__item')
 
-    paginationItem.addEventListener('click', () =>
+    paginationItem.addEventListener('click', (event) =>
     {
         requestData.page = page;
+        event.currentTarget.classList.add("current");
         console.log("page twork", requestData.page);
         getServerData(requestTypes.TRENDING, requestData.page).then(movies => {
             renderMoviesMarkup(movies);
