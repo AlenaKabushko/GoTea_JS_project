@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { getDatabase, set, ref, onValue } from "firebase/database"
 
 const firebaseConfig = {
@@ -18,11 +18,24 @@ const database = getDatabase(app);
 
 const formReg = document.querySelector('.reg-form')
 const formLogin = document.querySelector('.login-form')
+const logoutBtn = document.querySelector('[data-logout]')
+const openModalBtn = document.querySelector("[ data-modal-open]")
+const closeModalBtn = document.querySelector("[data-modal-close]")
+const modal = document.querySelector("[data-modal]")
 
 
 formReg.addEventListener('submit', createUser)
 formLogin.addEventListener('submit', getUser)
-  
+logoutBtn.addEventListener('click', logOutUser)
+
+openModalBtn.addEventListener("click", toggleModal);
+closeModalBtn.addEventListener("click", toggleModal);
+
+  function toggleModal() {
+    modal.classList.toggle("visually-hidden");
+  };
+
+
 function createUser(event) {
     event.preventDefault();
     const formElements = {
@@ -76,6 +89,8 @@ function getUser(event) {
       // console.log(name)
       
       alert(`Welcome back, ${name}`)
+      document.location.href = "library.html"  //Перехід на сторінку Library після авторизації
+      // openModalBtn.classList.add('visually-hidden')
     });
   })
   .catch((error) => {
@@ -83,67 +98,18 @@ function getUser(event) {
     const errorMessage = error.message;
     alert(errorMessage)
   });
- }
-
-
-
-// //-------------------------------------------------------------
-// //Форми з дз
-// /*const form = document.querySelector('.login-form')
-// form.addEventListener("submit", onFormSubmit)
-
-// function onFormSubmit(event) {
-//   event.preventDefault();
-//   const formElements = {
-//     mail: event.currentTarget.elements.email.value,
-//     password: event.currentTarget.elements.password.value,
-//   }
-//   if (formElements.mail === "" || formElements.password === "") {
-//     return alert("Please fill in all the fields!");
-//   } console.log(formElements);
-//     event.currentTarget.reset();
-// }*/
-
-// //----------------------------------------------------------------------------------------
-// // Збереження в локалсторедж
-// /*import throttle from 'lodash.throttle'
-
-// const form = document.querySelector('.feedback-form')
-// const textarea = document.querySelector('textarea')
-// const email = document.querySelector('input')
-
-// const STORAGE_KEY = 'feedback-form-state'
-// const formData = {}
-
-
-// form.addEventListener('submit', onFormSubmit)
-// form.addEventListener("input", throttle(onTextInput, 1000))
-
-// populateText()
-
-// function onFormSubmit(evt) {
-//     evt.preventDefault();
-//     evt.target.reset()
-//     localStorage.removeItem(STORAGE_KEY)
-// }
-
-// function onTextInput(evt) {
-//     formData[evt.target.name] = evt.target.value
-//     console.log(formData)
-//     const formDataJSON = JSON.stringify(formData)
-//     localStorage.setItem(STORAGE_KEY, formDataJSON)
-// }
-
-// function populateText() {
-//     const savedData= localStorage.getItem(STORAGE_KEY)
-//     // console.log(savedData)
-    
-//     if (savedData) {
-//         const savedDataParse = JSON.parse(savedData)
-//         email.value = savedDataParse.email
-//         textarea.value = savedDataParse.message
-//     }
-// }*/
-
-
+}
+ //Функція виходу зі сторінки користувача
+function logOutUser(event) {
+  signOut(auth).then(() => {
+    document.location.href = "index.html"
+    // modalContainer.classList.add('visually-hidden')
+    // Sign-out successful.
+  }).catch((error) => {
+    // An error happened.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    alert(errorMessage)
+  });
+}
 
