@@ -8,3 +8,5 @@ import './js/pagination';
 import './js/firebase-modal';
 // import './js/firebase-modal';
 import './js/switcherTheme';
+import './js/select';
+import './js/filter';
