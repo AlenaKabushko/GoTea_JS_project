@@ -5,19 +5,36 @@
 .pagination {
     display: flex;
 justify-content: center;
+align-items: center;
 flex-wrap: wrap;
 background-color: $text-secondary;
 }
 
 .pagination-list__item {
-    padding: 8px;
-    margin: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    line-height: 1.3;
     cursor: pointer;
-    color: $main;
     list-style-type: none;
 
-    &:active {
-        font-weight: 800;
-        color: gold;
+    &:not(:last-child){
+        margin-right: 16px;
     }
+
+    &:active,
+    &:hover,
+    &:focus {
+        color: $current-page;
+    }
+}
+
+.current {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: $text-accent;
+    color: $text-secondary;
+    
 }
