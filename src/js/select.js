@@ -29,9 +29,10 @@ export function createCustomOneSelect() {
       divElementOption.addEventListener('click', function (e) {
         const previousSibling = this.parentNode.previousSibling;
         for (let i = 0; i < lenSelElmnt; i++) {
-          if (selElmnt.options[i].innerHTML == this.innerHTML) {
+          if (selElmnt.options[i].innerHTML === this.innerHTML) {
             selElmnt.selectedIndex = i;
-            previousSibling.innerHTML = this.innerHTML;
+            previousSibling.innerHTML =
+              this.innerHTML === 'None' ? 'Year' : this.innerHTML;
             const elementSameAsSelected =
               this.parentNode.getElementsByClassName('same-as-selected');
             const lenElementSameAsSelected = elementSameAsSelected.length;
@@ -106,7 +107,30 @@ export function getOption(classSelect) {
   const textSelect = document
     .querySelector(`.custom-select.${classSelect}`)
     .querySelector('.select-selected');
-  return textSelect.textContent !== 'None' ? textSelect.textContent : '';
+  switch (textSelect.textContent) {
+    case 'Year':
+      return '';
+    case '2022':
+      return '&primary_release_date.gte=2022-01-01';
+    case '2021':
+      return '&primary_release_year=2021';
+    case '2020':
+      return '&primary_release_year=2020';
+    case '2016-19':
+      return '&primary_release_date.gte=2016-01-01&primary_release_date.lte=2019-12-31';
+    case '2010-15':
+      return '&primary_release_date.gte=2010-01-01&primary_release_date.lte=2015-12-31';
+    case '2000s':
+      return '&primary_release_date.gte=2000-01-01&primary_release_date.lte=2009-12-31';
+    case '1990s':
+      return '&primary_release_date.gte=1990-01-01&primary_release_date.lte=1999-12-31';
+    case '1980s':
+      return '&primary_release_date.gte=1980-01-01&primary_release_date.lte=1989-12-31';
+    case '1970s':
+      return '&primary_release_date.gte=1970-01-01&primary_release_date.lte=1979-12-31';
+    case '1960s':
+      return '&primary_release_date.lte=1969-12-31';
+  }
 }
 
 //------------------------------------------------
@@ -211,7 +235,7 @@ export function createCustomMultiSelect() {
 
 function getMultiString(selElmnt, lenSelElmnt) {
   if (selElmnt.array[0] === 0) {
-    return selElmnt.options[1].innerHTML;
+    return 'Genres';
   } else {
     let name = '';
     for (let i = 2; i < lenSelElmnt; i += 1) {

@@ -24,7 +24,7 @@ export function fillGenresFiltr(classSelect) {
 
 function markupFilterGenres() {
   let markup =
-    '<select><option value="None">None</option><option value="None">None</option>';
+    '<select><option value="Genres">Genres</option><option value="None">None</option>';
   markup += requestData.genres
     .map(({ id, name }) => `<option value="${id}">${name}</option>`)
     .join('');
@@ -34,30 +34,29 @@ function markupFilterGenres() {
 
 const filterBtn = document.querySelector('.filter-btn');
 filterBtn.addEventListener('click', function (e) {
-  const filterSearch = getOption('filter-search');
+  const filterYears = getOption('filter-years');
   const filterGendes = getMultiOption('filter-genres');
   requestData.page = 1;
+  requestData.discover = '';
   if (filterGendes.length) {
-    requestData.discover = filterGendes;
+    requestData.discover = `&with_genres=${filterGendes}`;
+  }
+  requestData.discover += filterYears;
+  if (requestData.discover) {
     getServerData(requestTypes.DISCOVER).then(movies => {
       renderMoviesMarkup(movies);
     });
   } else {
-    switch (filterSearch) {
-      case 'Popular':
-        getServerData(requestTypes.POPULAR).then(movies => {
-          renderMoviesMarkup(movies);
-        });
-        break;
-      case 'Top rated':
-        getServerData(requestTypes.TOPRATED).then(movies => {
-          renderMoviesMarkup(movies);
-        });
-        break;
-      default:
-        getServerData(requestTypes.TRENDING).then(movies => {
-          renderMoviesMarkup(movies);
-        });
-    }
+    getServerData(requestTypes.TRENDING).then(movies => {
+      renderMoviesMarkup(movies);
+    });
   }
+});
+
+const filterNavBtn = document.querySelector(
+  '.header__navigation-button-filter'
+);
+filterNavBtn.addEventListener('click', function (e) {
+  const filterContainer = document.querySelector('.filter__container');
+  filterContainer.classList.toggle('visually-hidden');
 });
