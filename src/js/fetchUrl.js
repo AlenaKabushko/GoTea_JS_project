@@ -1,6 +1,5 @@
 ﻿import axios from 'axios';
 import { spinnerOn, spinnerOff } from './spinner';
-import { fillGenresFiltr } from './filter';
 
 // для добавления кликов по отрендеренным карточкам
 import { setGalleryClickListeners } from './gallery-card-modal';
