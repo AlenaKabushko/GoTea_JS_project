@@ -1,0 +1,107 @@
+.filter__container {
+  display: flex;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 40px;
+  z-index: 99;
+}
+
+/*the container must be positioned relative:*/
+.custom-multi-select,
+.custom-select {
+  position: relative;
+  font-family: Arial, Helvetica, sans-serif;
+  border-style: solid;
+  border-color: #606060;
+  border-width: 1px;
+  border-radius: 16px;
+  margin-right: 10px;
+}
+
+.custom-multi-select select,
+.custom-select select {
+  display: none; /*hide original SELECT element:*/
+}
+
+.select-selected {
+  background-color: #000;
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: '';
+  top: 12px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent; /* #fff */
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent; /* #fff */
+  top: 5px;
+}
+
+.select-selected {
+  color: #fff;
+  padding: 4px 16px;
+  border: 1px solid transparent;
+  border-color: #808080;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 14px;
+}
+
+.select-selected:hover {
+  border-color: #fff;
+}
+
+.select-items div {
+  background-color: #fff;
+  color: #000;
+  padding: 4px 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.select-items {
+  position: absolute;
+  box-shadow: -1px -1px 2px 1px rgba(0, 0, 0, 0.3),
+    1px 1px 2px 1px rgba(0, 0, 0, 0.3);
+  top: 140%;
+  left: 0;
+  right: 0;
+}
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover {
+  background-color: #808080;
+  /* color: #000; */
+}
+
+div .same-as-selected {
+  background-color: #000;
+  color: #fff;
+}
+
+.filter-btn {
+  color: #fff;
+  padding: 4px 16px;
+  border: 1px solid transparent;
+  border-color: #808080;
+  cursor: pointer;
+  border-radius: 14px;
+  background-color: #000;
+}
+
+.filter-btn:hover {
+  border-color: #fff;
+}

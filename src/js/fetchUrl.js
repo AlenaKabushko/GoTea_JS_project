@@ -1,5 +1,6 @@
 ﻿import axios from 'axios';
 import { spinnerOn, spinnerOff } from './spinner';
+import { fillGenresFiltr } from './filter';
 
 // для добавления кликов по отрендеренным карточкам
 import { setGalleryClickListeners } from './gallery-card-modal';
@@ -48,16 +49,16 @@ export let requestData = {
   //  results       - массив объектов, максимум 20 штук
   //  total_pages   - общее число страниц
   //  total_results - общее число объектов
-  movies: null,
+  movies: {},
 
   //массив соответствия номеров жанров и названия
-  genres: null,
+  genres: [],
 
   //найденный объект по id
-  movie: null,
+  movie: {},
 
   //найденные видео для id
-  videos: null,
+  videos: [],
 };
 
 //функция получения данных с сервера
@@ -133,6 +134,7 @@ getServerData(requestTypes.GENRE)
   .then(data => {
     //сохраним его в глобальной переменной
     requestData.genres = data.genres;
+    fillGenresFiltr('filter-genres');
     return true;
   })
   .then(() => {
@@ -143,8 +145,8 @@ getServerData(requestTypes.GENRE)
       })
       .then(() => {
         console.log(requestData.movies.total_pages);
-        makePaginationBtn(requestData.movies.total_pages)
-        makePagination(requestData.movies.total_pages, 20)
+        makePaginationBtn(requestData.movies.total_pages);
+        makePagination(requestData.movies.total_pages, 20);
       });
   });
 
@@ -300,7 +302,6 @@ export function setMovieGenresNames(movie) {
 //функция замены массива жанров на строку
 //параметры: массив объектов и массив соответствия номера жанра и названия
 function setGenresNames(movies, genresList) {
-  console.log(movies, genresList);
   //по всем объектам
   movies.forEach(movie => {
     //усечение даты до года
