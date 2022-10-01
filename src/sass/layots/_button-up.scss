@@ -1,0 +1,27 @@
+.button-top {
+    position: sticky;
+    bottom: 5vh;
+    left: 93vw;
+
+    display: block;
+    width: 40px;
+    height: 40px;
+
+    font-size: 45px;
+
+    color: $current-page;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+
+    cursor: pointer;
+    box-shadow: 0px 5px 35px $current-page;
+    transition: background-color 300ms linear;
+
+    &:hover,
+    &:focus {
+        background-color: $current-page;
+        color: $main;
+        
+    }
+}
