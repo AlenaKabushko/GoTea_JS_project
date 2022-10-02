@@ -13,8 +13,8 @@ close.addEventListener("click", teemModal);
   
   }
    modal.addEventListener('keydown', (evt) => {
-        if (evt.code === "Escape") {
-            window.close();
+        if (evt.code === 'Escape') {
+            instance.close();
         }
     });
 })();
