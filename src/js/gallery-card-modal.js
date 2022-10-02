@@ -334,6 +334,13 @@ function btnTextSaver(id) {
 
   let toWatch = load('watched');
   let toQueue = load('queue');
+  if (toWatch === undefined) {
+    return;
+  }
+
+  if (toQueue === undefined) {
+    return;
+  }
 
   if (
     toWatch.find(film => film.id === id) &&
