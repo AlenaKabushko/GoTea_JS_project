@@ -207,9 +207,10 @@ async function renderDataToModalCard(cardNode) {
   }
 
   // ..............Watch / Queue
-  btnTextSaver(id);
+
   const btnQueue = document.querySelector('#btn-to-queue');
   const btnWatch = document.querySelector('#btn-to-watched');
+  btnTextSaver(id);
 
   btnQueue.addEventListener('click', onQueueBtnClick);
   btnWatch.addEventListener('click', onWatchBtnClick);
@@ -328,14 +329,30 @@ function closeTrailerWindow() {
 }
 
 function btnTextSaver(id) {
-  console.log(id);
-  let toWatch = load('watched');
-  console.log(toWatch);
-  let toQueue = load('queue');
-  console.log(toQueue);
+  const btnQueue = document.querySelector('#btn-to-queue');
+  const btnWatch = document.querySelector('#btn-to-watched');
 
-  let TofindinWatched = toWatch.find(film => film.id === id);
-  console.log(TofindinWatched.id);
+  let toWatch = load('watched');
+  let toQueue = load('queue');
+
+  if (
+    toWatch.find(film => film.id === id) &&
+    toQueue.find(film => film.id === id)
+  ) {
+    btnWatch.textContent = 'remove from watched';
+    btnQueue.textContent = 'remove from queue';
+    return;
+  }
+
+  if (toWatch.find(film => film.id === id)) {
+    btnWatch.textContent = 'remove from watched';
+    return;
+  }
+
+  if (toQueue.find(film => film.id === id)) {
+    btnQueue.textContent = 'remove from queue';
+    return;
+  }
 }
 
 export { setGalleryClickListeners };

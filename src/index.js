@@ -11,4 +11,3 @@ import './js/modal-teem';
 import './js/pagination';
 import './js/switcherTheme';
 import './js/button-up';
-

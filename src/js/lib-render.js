@@ -58,6 +58,7 @@ function onlibWatchedBtnEl() {
     )
     .join('');
   galleryEl.insertAdjacentHTML('afterbegin', markup);
+
   setGalleryClickListeners();
 }
 
