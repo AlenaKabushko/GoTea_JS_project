@@ -359,6 +359,115 @@ async function renderDataToModalCard(cardNode) {
   // }
 }
 
+// //   textContentBtn(id);
+// //   const btnQueue = document.querySelector('#btn-to-queue');
+// //   const btnWatch = document.querySelector('#btn-to-watched');
+
+// //   btnQueue.addEventListener('click', addQueueList);
+// //   btnWatch.addEventListener('click', addWatchList);
+
+// //   function addWatchList() {
+// //     const btnWatch = document.querySelector('#btn-to-watched');
+// //     if (btnWatch.classList.contains('active')) {
+// //       removeFromWatchedList(id);
+// //     } else {
+// //       let watchList = [];
+// //       let localWatchListJson = load('watched');
+// //       if (localWatchListJson) {
+// //         watchList = [...localWatchListJson];
+// //       }
+
+// //       let queueList = [];
+// //       let localQueueListJson = load('queue');
+// //       if (localQueueListJson) {
+// //         queueList = [...localQueueListJson];
+// //       }
+// //       let queueSet = new Set(queueList);
+// //       if (queueSet.has(id)) {
+// //         remove('queue');
+// //         let index = queueList.indexOf(id);
+// //         queueList.splice(index, 1);
+// //         save('queue', queueList);
+// //       }
+
+// //       const watchSet = new Set(watchList);
+// //       if (watchSet.has(id)) {
+// //         textContentBtn(id);
+// //       } else {
+// //         watchList.push(id);
+// //         save('watched', watchList);
+// //         textContentBtn(id);
+// //       }
+// //     }
+// //   }
+
+// //   function removeFromWatchedList(id) {
+// //     let watchList = [];
+// //     let localWatchListJson = load('watched');
+// //     if (localWatchListJson) {
+// //       watchList = [...localWatchListJson];
+// //     }
+
+// //     remove('watched');
+// //     let index = watchList.indexOf(id);
+// //     watchList.splice(index, 1);
+// //     save('watched', watchList);
+
+// //     textContentBtn();
+// //   }
+
+// //   function removeFromQueueList(id) {
+// //     let queueList = [];
+// //     let localQueueListJson = load('queue');
+// //     if (localQueueListJson) {
+// //       queueList = [...localQueueListJson];
+// //     }
+
+// //     remove('queue');
+// //     let index = queueList.indexOf(id);
+// //     queueList.splice(index, 1);
+// //     save('queue', queueList);
+
+// //     textContentBtn();
+// //   }
+
+// //   function addQueueList() {
+// //     const btnQueue = document.querySelector('#btn-to-queue');
+// //     if (btnQueue.classList.contains('active')) {
+// //       removeFromQueueList(id);
+// //     } else {
+// //       let queueList = [];
+// //       let localQueueListJson = load('queue');
+// //       if (localQueueListJson) {
+// //         queueList = [...localQueueListJson];
+// //       }
+
+// //       let watchList = [];
+// //       let localWatchListJson = load('watched');
+// //       if (localWatchListJson) {
+// //         watchList = [...localWatchListJson];
+// //       }
+// //       let watchSet = new Set(watchList);
+// //       if (watchSet.has(id)) {
+// //         remove('watched');
+// //         let index = watchList.indexOf(id);
+// //         watchList.splice(index, 1);
+// //         save('watched', watchList);
+// //       }
+
+// //       const queueSet = new Set(queueList);
+// //       if (queueSet.has(id)) {
+// //         textContentBtn(id);
+// //       } else {
+// //         queueList.push(id);
+// //         save('queue', queueList);
+// //         textContentBtn(id);
+// //       }
+// //     }
+// //   }
+// // }
+// >>>>>>> Stashed changes
+
 function removeOldMarkup() {
   const imageMarkup = modalWindow.querySelector('.image');
   if (imageMarkup) {
@@ -390,6 +499,7 @@ function closeTrailerWindow() {
   }
   overlay.style.zIndex = 20;
 }
+// export { setGalleryClickListeners };
 
 // ..............Watch / Queue
 // function inList(id, list) {
@@ -435,5 +545,3 @@ function closeTrailerWindow() {
 //     btnQueue.disabled = false;
 //   }
 // }
-
-export { setGalleryClickListeners };
