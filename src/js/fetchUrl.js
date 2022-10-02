@@ -143,8 +143,8 @@ getServerData(requestTypes.GENRE)
       })
       .then(() => {
         console.log(requestData.movies.total_pages);
-        makePaginationBtn(requestData.movies.total_pages)
-        makePagination(requestData.movies.total_pages, 20)
+        makePaginationBtn(requestData.movies.total_pages);
+        makePagination(requestData.movies.total_pages, 20);
       });
   });
 
@@ -325,3 +325,19 @@ function setGenresNames(movies, genresList) {
 }
 
 // --------------------------
+const searchForm = document.querySelector('.header__form-block');
+const searchInput = document.querySelector('.header__form-input');
+const headerSearchError = document.querySelector('.visually-hidden');
+
+searchForm.addEventListener('click', e => {
+  e.preventDefault();
+  requestData.search = `${searchInput.value}`;
+  requestData.page = 1;
+  getServerData(requestTypes.SEARCH).then(movies => {
+    renderMoviesMarkup(movies);
+    /*  if (requestData.search === []) {
+      return headerSearchError;
+    } */
+    searchInput.value = '';
+  });
+});
