@@ -1,35 +1,38 @@
 <!-- <button type="button">Register / Log in</button> -->
 <div class="auth-modal visually-hidden backdrop" data-modal>
-    <button type="button" data-modal-close>
-    <svg class="icon-close" width="32" height="32" >
-        <use href="./images/symbol-defs.svg#icon-close"></use>
-    </svg>
+    <button class="auth-modal__closbtn" type="button" data-modal-close>
+        <svg class="icon-close" width="32" height="32">
+            <use href="./images/symbol-defs.svg#icon-close"></use>
+        </svg>
     </button>
+    <!-- <h1>Welcome to Filmoteka</h2> -->
     <div class="auth">
-
+        
         <div class="reg-container">
-            <h2>Register</h2>
+            <h2 class="reg-title">Register</h2>
             <form class="reg-form">
-            
-                <input class="reg-form__name" type="text" name="username" placeholder="Username" />
-            
-                <input class="reg-form__email" type="email" name="email" placeholder="E-mail" />
-            
-                <input class="reg-form__password" type="password" name="password" placeholder="Password" />
-            
 
-            <button id="register" type="submit">Register</button>
+                <input class="reg-form__input" type="text" name="username" placeholder="Enter your name" />
 
-        <form>
+                <input class="reg-form__input" type="email" name="email" placeholder="E-mail" />
+
+                <input class="reg-form__input" type="password" name="password" placeholder="Password" />
+
+
+                <button class="btn-queue-modal btn" id="register" type="submit">Register</button>
+
+                <form>
         </div>
-        <div class="or"><p>OR</p></div>
+        <div class="or">
+            <p>OR</p>
+        </div>
         <div class="login-container">
-            <h2>Log in</h2>
+            <h2 class="reg-title">Log in</h2>
             <form class="login-form">
-            <input type="email" name="email" placeholder="E-mail" />
-            
-            <input type="password" name="password" placeholder="Password" />
-            <button id="login" type="submit">Log in</button>
+                <input class="reg-form__input" type="email" name="email" placeholder="E-mail" />
+
+                <input class="reg-form__input" type="password" name="password" placeholder="Password" />
+                <button class="btn-queue-modal btn" id="login" type="submit">Log in</button>
             </form>
         </div>
     </div>
