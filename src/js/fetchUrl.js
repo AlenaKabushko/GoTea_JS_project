@@ -35,6 +35,8 @@ export let requestData = {
 
   //строка для фильтра по жанрам
   discover: '',
+  //строка для фильтра по годам
+  year: '',
 
   //для поиска по id
   id: 0,
@@ -79,7 +81,7 @@ export const getServerData = async (type = requestTypes.TRENDING) => {
     case requestTypes.DISCOVER: {
       requestData.request = type;
       const { data } = await axios.get(
-        `/discover/movie?api_key=${API_KEY}&page=${requestData.page}&with_genres=${requestData.discover}`
+        `/discover/movie?api_key=${API_KEY}&page=${requestData.page}${requestData.discover}`
       );
       return data;
     }

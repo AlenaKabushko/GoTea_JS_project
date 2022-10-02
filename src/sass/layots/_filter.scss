@@ -3,8 +3,10 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 0px;
-  // top: 40px;
+  top: 5px;
+  @media screen and (min-width: 1280px) {
+    top: 40px;
+  }
   z-index: 99;
 }
 
@@ -12,12 +14,16 @@
 .custom-multi-select,
 .custom-select {
   position: relative;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: inherit;
+  font-size: 14px;
   border-style: solid;
   border-color: #606060;
   border-width: 1px;
   border-radius: 16px;
-  margin-right: 10px;
+  margin-right: 0px;
+  @media screen and (min-width: 768px) {
+    margin-right: 10px;
+  }
 }
 
 .custom-multi-select select,
@@ -49,7 +55,10 @@
 
 .select-selected {
   color: #fff;
-  padding: 4px 16px;
+  padding: 4px 8px;
+  @media screen and (min-width: 768px) {
+    padding: 4px 16px;
+  }
   border: 1px solid transparent;
   border-color: #808080;
   cursor: pointer;
@@ -64,7 +73,10 @@
 .select-items div {
   background-color: #fff;
   color: #000;
-  padding: 4px 16px;
+  padding: 4px 8px;
+  @media screen and (min-width: 768px) {
+    padding: 4px 16px;
+  }
   cursor: pointer;
   user-select: none;
 }
@@ -95,7 +107,10 @@ div .same-as-selected {
 
 .filter-btn {
   color: #fff;
-  padding: 4px 16px;
+  padding: 4px 8px;
+  @media screen and (min-width: 768px) {
+    padding: 4px 16px;
+  }
   border: 1px solid transparent;
   border-color: #808080;
   cursor: pointer;
