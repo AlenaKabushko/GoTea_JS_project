@@ -1,4 +1,4 @@
-﻿<header class="header header-library-bg">
+﻿﻿<header class="header header-library-bg">
   <div class="container">
     <nav class="header__navigation">
       <a href="index.html" class="header__logo">
@@ -9,12 +9,24 @@
       >
       <ul class="header__navigation-list">
         <li class="header__navigation-item">
+          <button
+            class="header__navigation-button visually-hidden"
+            type="button"
+            data-modal-open
+          >
+            Log in
+          </button>
+        </li>
+        <li class="header__navigation-item">
+          <button class="header__navigation-button" type="button" data-logout>
+            Log out
+          </button>
+        </li>
+        <li class="header__navigation-item">
           <a class="header__navigation-link" href="index.html">Home</a>
         </li>
         <li class="header__navigation-item">
-          <a
-            class="header__navigation-link is-active-page selector-class"
-            href="library.html"
+          <a class="header__navigation-link is-active-page" href="library.html"
             >My library</a
           >
         </li>
