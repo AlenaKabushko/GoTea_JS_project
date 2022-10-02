@@ -59,7 +59,7 @@ function newPagination(allPages, page) {
         li += `<li class="pag-number pag-btn ${liActive}"><span>${pageLength}</span></li>`;
 
         if (page === pageLength) {
-            liActive = 'active'
+            liActive = 'active-pagin-page'
         } else {
             liActive = ''
         }
