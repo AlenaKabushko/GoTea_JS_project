@@ -28,9 +28,9 @@
           >
         </li>
         <li class="header__navigation-item">
-          <a class="header__navigation-link select-class" href="library.html"
-            >My library</a
-          >
+
+          <a class="header__navigation-link" href="library.html">My library</a>
+
         </li>
         <li class="header__navigation-item">
           <button
@@ -46,6 +46,8 @@
       <div class="header__form-block">
         <input
           type="text"
+          oninput="this.value = this.value.replace(/\s+/g, ' ')"
+
           class="header__form-input"
           placeholder="Movie search"
         />
