@@ -37,4 +37,36 @@ export function makePaginationBtn(page) {
 
 
 
+function newPagination(allPages, page) {
+    const newPaginationBoxRef = document.querySelector('.new-pagination-list')
+    console.log(newPaginationBoxRef)
+    console.log("new pag")
+    let li = '';
+    let beforePages = page - 1;
+    let afterPages = page + 1;
+    let liActive;
 
+    if (page > 1) {
+        li += `<li class="pag-btn"><i class="fas left">стрелка</i></li>`
+    }
+
+    for (let pageLength = beforePages; pageLength <= afterPages; pageLength ++) {
+        li += `<li class="pag-number pag-btn ${liActive}"><span>${pageLength}</span></li>`;
+
+        if (page === pageLength) {
+            liActive = 'active'
+        } else {
+            liActive = ''
+        }
+    }
+
+    if (page < allPages) {
+        li += `<li class="pag-btn"><i class="fas right">стрелка</i></li>`
+    }
+
+
+    newPaginationBoxRef.innerHTML = li
+
+}
+
+newPagination(10, 4)

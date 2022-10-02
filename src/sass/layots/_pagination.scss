@@ -39,3 +39,33 @@ background-color: $text-secondary;
     color: $text-secondary;
     
 }
+
+
+// ----------------------
+.new-pagination {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-list {
+        display: flex;
+    }
+}
+
+
+
+.pag-btn {
+    width: 60px;
+    cursor: pointer;
+    background-color: #fff;
+
+    &:active {
+        color: $text-accent;
+    }
+}
+
+.active {
+    color: tomato;
+    background-color: aqua;
+}
