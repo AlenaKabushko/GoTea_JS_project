@@ -35,6 +35,8 @@ export let requestData = {
 
   //строка для фильтра по жанрам
   discover: '',
+  //строка для фильтра по годам
+  year: '',
 
   //для поиска по id
   id: 0,
@@ -48,16 +50,16 @@ export let requestData = {
   //  results       - массив объектов, максимум 20 штук
   //  total_pages   - общее число страниц
   //  total_results - общее число объектов
-  movies: null,
+  movies: {},
 
   //массив соответствия номеров жанров и названия
-  genres: null,
+  genres: [],
 
   //найденный объект по id
-  movie: null,
+  movie: {},
 
   //найденные видео для id
-  videos: null,
+  videos: [],
 };
 
 //функция получения данных с сервера
@@ -79,7 +81,7 @@ export const getServerData = async (type = requestTypes.TRENDING) => {
     case requestTypes.DISCOVER: {
       requestData.request = type;
       const { data } = await axios.get(
-        `/discover/movie?api_key=${API_KEY}&page=${requestData.page}&with_genres=${requestData.discover}`
+        `/discover/movie?api_key=${API_KEY}&page=${requestData.page}${requestData.discover}`
       );
       return data;
     }
@@ -126,6 +128,7 @@ export function getNextServerData() {
 }
 
 //-----------------------------------------------------------------------
+
 //на старте:
 
 //запрос массива соответствия номера жанра и названия
@@ -149,6 +152,7 @@ getServerData(requestTypes.GENRE)
   });
 
 //-----------------------------------------------------------------------
+
 //Следующие функции перенесутся в нужные файлы
 //Пока здесь для наглядности
 //-----------------------------------------------------------------------
@@ -300,7 +304,9 @@ export function setMovieGenresNames(movie) {
 //функция замены массива жанров на строку
 //параметры: массив объектов и массив соответствия номера жанра и названия
 function setGenresNames(movies, genresList) {
+
   // console.log(movies, genresList);
+
   //по всем объектам
   movies.forEach(movie => {
     //усечение даты до года
@@ -325,3 +331,19 @@ function setGenresNames(movies, genresList) {
 }
 
 // --------------------------
+const searchForm = document.querySelector('.header__form-block');
+const searchInput = document.querySelector('.header__form-input');
+/* const headerSearchError = document.querySelector('.visually-hidden'); */
+
+searchForm.addEventListener('click', e => {
+  e.preventDefault();
+  requestData.search = `${searchInput.value}`;
+  requestData.page = 1;
+  getServerData(requestTypes.SEARCH).then(movies => {
+    renderMoviesMarkup(movies);
+    /*  if (requestData.search === []) {
+      return headerSearchError;
+    } */
+    searchInput.value = '';
+  });
+});
