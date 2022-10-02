@@ -212,7 +212,7 @@ async function renderDataToModalCard(cardNode) {
   const btnQueue = document.querySelector('#btn-to-queue');
   const btnWatch = document.querySelector('#btn-to-watched');
 
-  btnQueue.addEventListener('click', addQueueList);
+  btnQueue.addEventListener('click', onQueueBtnClick);
   btnWatch.addEventListener('click', onWatchBtnClick);
 
   function onWatchBtnClick(e) {
@@ -220,10 +220,16 @@ async function renderDataToModalCard(cardNode) {
 
     if (e.target.className === 'btn btn-watch-modal') {
       if (e.target.innerHTML === 'remove from watched') {
+        let watched = load('watched');
+        let index = watched.findIndex(film => film.id === openedMovie.id);
+        watched.splice(index, 1);
+        save('watched', watched);
+        btnWatch.innerHTML = 'add to watched';
+        return;
       }
-    }
 
-    onBtnAddToWatchedClick();
+      onBtnAddToWatchedClick();
+    }
   }
 
   function onBtnAddToWatchedClick() {
@@ -265,9 +271,28 @@ async function renderDataToModalCard(cardNode) {
   //     }
   //   }
   // }
-
-  function addQueueList() {
+  function onQueueBtnClick(e) {
     let openedMovie = movie;
+
+    if (e.target.className === 'btn btn-queue-modal') {
+      if (e.target.innerHTML === 'remove from queue') {
+        let queued = load('queue');
+        let index = queued.findIndex(film => film.id === openedMovie.id);
+        queued.splice(index, 1);
+        save('queue', queued);
+        btnQueue.innerHTML = 'add to queue';
+        return;
+      }
+
+      onBtnAddToQueueClick();
+    }
+  }
+
+  function onBtnAddToQueueClick() {
+    let openedMovie = movie;
+
+    btnQueue.innerHTML = 'remove from queue';
+
     let queuedFilms = [];
     queuedFilms = load('queue');
 
