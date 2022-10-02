@@ -1,21 +1,26 @@
-import { renderMoviesMarkup, requestData, requestTypes, getNextServerData, getServerData } from "./fetchUrl";
+import {
+  renderMoviesMarkup,
+  requestData,
+  requestTypes,
+  getNextServerData,
+  getServerData,
+} from './fetchUrl';
 
 export function makePagination(amountPages, rowPage) {
-    const paginationBoxRef = document.querySelector('.pagination')
-    console.log(paginationBoxRef)
-    const pageCount = Math.ceil(amountPages / rowPage)
-    
-    console.log(pageCount)
+  const paginationBoxRef = document.querySelector('.pagination');
+  // console.log(paginationBoxRef)
+  const pageCount = Math.ceil(amountPages / rowPage);
 
-    for (let i = 1; i <= pageCount; i += 1) {
-        const paginationListItem = makePaginationBtn(i);
-        paginationBoxRef.appendChild(paginationListItem)
-    }
+  // console.log(pageCount)
 
+  for (let i = 1; i <= pageCount; i += 1) {
+    const paginationListItem = makePaginationBtn(i);
+    paginationBoxRef.appendChild(paginationListItem);
+  }
 }
 
-
 export function makePaginationBtn(page) {
+
     console.log("work")
     const paginationItem = document.createElement('li')
     paginationItem.innerText = page
@@ -70,3 +75,4 @@ function newPagination(allPages, page) {
 }
 
 newPagination(10, 4)
+

@@ -33,7 +33,7 @@ function onGalleryCardClick(event) {
   document.body.addEventListener('keydown', onEscapePress, false);
   overlay.addEventListener('click', onOverlayClick);
 
-  console.log(btnClose);
+  // console.log(btnClose);
 
   spinnerOff();
 }
@@ -52,7 +52,7 @@ function onEscapePress(event) {
 }
 
 function onButtonCloseClick(event) {
-  console.log(event);
+  // console.log(event);
   closeWindow();
 }
 
@@ -108,7 +108,7 @@ async function renderDataToModalCard(cardNode) {
   );
 
   if (!movie) {
-    console.log('НЕ УДАЛОСЬ НАЙТИ ФИЛЬМ В ДАННЫХ ПО ID!!!');
+    // console.log('НЕ УДАЛОСЬ НАЙТИ ФИЛЬМ В ДАННЫХ ПО ID!!!');
     return;
   }
 
@@ -208,112 +208,208 @@ async function renderDataToModalCard(cardNode) {
 
   // ..............Watch / Queue
 
-  textContentBtn(id);
+  // textContentBtn(id);
   const btnQueue = document.querySelector('#btn-to-queue');
   const btnWatch = document.querySelector('#btn-to-watched');
 
-  btnQueue.addEventListener('click', addQueueList);
-  btnWatch.addEventListener('click', addWatchList);
+  btnQueue.addEventListener('click', onQueueBtnClick);
+  btnWatch.addEventListener('click', onWatchBtnClick);
 
-  function addWatchList() {
-    const btnWatch = document.querySelector('#btn-to-watched');
-    if (btnWatch.classList.contains('active')) {
-      removeFromWatchedList(id);
+  function onWatchBtnClick(e) {
+    let openedMovie = movie;
+
+    if (e.target.className === 'btn btn-watch-modal') {
+      if (e.target.innerHTML === 'remove from watched') {
+        let watched = load('watched');
+        let index = watched.findIndex(film => film.id === openedMovie.id);
+        watched.splice(index, 1);
+        save('watched', watched);
+        btnWatch.innerHTML = 'add to watched';
+        return;
+      }
+
+      onBtnAddToWatchedClick();
+    }
+  }
+
+  function onBtnAddToWatchedClick() {
+    let openedMovie = movie;
+
+    btnWatch.innerHTML = 'remove from watched';
+
+    let watchedFilms = [];
+    watchedFilms = load('watched');
+
+    if (watchedFilms) {
+      const hasMovie = watchedFilms.find(
+        watchedFilm => watchedFilm.id === openedMovie.id
+      );
+      if (hasMovie) {
+        return;
+      }
+      watchedFilms.push(openedMovie);
+      save('watched', watchedFilms);
     } else {
-      let watchList = [];
-      let localWatchListJson = load('watched');
-      if (localWatchListJson) {
-        watchList = [...localWatchListJson];
-      }
-
-      let queueList = [];
-      let localQueueListJson = load('queue');
-      if (localQueueListJson) {
-        queueList = [...localQueueListJson];
-      }
-      let queueSet = new Set(queueList);
-      if (queueSet.has(id)) {
-        remove('queue');
-        let index = queueList.indexOf(id);
-        queueList.splice(index, 1);
-        save('queue', queueList);
-      }
-
-      const watchSet = new Set(watchList);
-      if (watchSet.has(id)) {
-        textContentBtn(id);
-      } else {
-        watchList.push(id);
-        save('watched', watchList);
-        textContentBtn(id);
-      }
+      watchedFilms = [openedMovie];
+      save('watched', watchedFilms);
     }
   }
 
-  function removeFromWatchedList(id) {
-    let watchList = [];
-    let localWatchListJson = load('watched');
-    if (localWatchListJson) {
-      watchList = [...localWatchListJson];
+  // function removeFromWatched(e) {
+  //   if (e.target.className === 'btn-watch-modal') {
+  //     if (e.target.innerHTML === 'remove from watched') {
+  //       const watchItem = load('wathced');
+  //       let repeated = watchItem.find(item => item.id === openedMovie.id);
+  //       console.log(repeated);
+  // save(
+  //   'watched',
+  //   watchItem.filter(item => item.id !== openedMovie.id)
+  // );
+  // btnWatch.innerHTML = 'add to watched';
+
+  //       return;
+  //     }
+  //   }
+  // }
+  function onQueueBtnClick(e) {
+    let openedMovie = movie;
+
+    if (e.target.className === 'btn btn-queue-modal') {
+      if (e.target.innerHTML === 'remove from queue') {
+        let queued = load('queue');
+        let index = queued.findIndex(film => film.id === openedMovie.id);
+        queued.splice(index, 1);
+        save('queue', queued);
+        btnQueue.innerHTML = 'add to queue';
+        return;
+      }
+
+      onBtnAddToQueueClick();
     }
-
-    remove('watched');
-    let index = watchList.indexOf(id);
-    watchList.splice(index, 1);
-    save('watched', watchList);
-
-    textContentBtn();
   }
 
-  function removeFromQueueList(id) {
-    let queueList = [];
-    let localQueueListJson = load('queue');
-    if (localQueueListJson) {
-      queueList = [...localQueueListJson];
-    }
+  function onBtnAddToQueueClick() {
+    let openedMovie = movie;
 
-    remove('queue');
-    let index = queueList.indexOf(id);
-    queueList.splice(index, 1);
-    save('queue', queueList);
+    btnQueue.innerHTML = 'remove from queue';
 
-    textContentBtn();
-  }
+    let queuedFilms = [];
+    queuedFilms = load('queue');
 
-  function addQueueList() {
-    const btnQueue = document.querySelector('#btn-to-queue');
-    if (btnQueue.classList.contains('active')) {
-      removeFromQueueList(id);
+    if (queuedFilms) {
+      const hasMovie = queuedFilms.find(
+        queuedFilm => queuedFilm.id === openedMovie.id
+      );
+      if (hasMovie) {
+        return;
+      }
+      queuedFilms.push(openedMovie);
+      save('queue', queuedFilms);
     } else {
-      let queueList = [];
-      let localQueueListJson = load('queue');
-      if (localQueueListJson) {
-        queueList = [...localQueueListJson];
-      }
-
-      let watchList = [];
-      let localWatchListJson = load('watched');
-      if (localWatchListJson) {
-        watchList = [...localWatchListJson];
-      }
-      let watchSet = new Set(watchList);
-      if (watchSet.has(id)) {
-        remove('watched');
-        let index = watchList.indexOf(id);
-        watchList.splice(index, 1);
-        save('watched', watchList);
-      }
-
-      const queueSet = new Set(queueList);
-      if (queueSet.has(id)) {
-        textContentBtn(id);
-      } else {
-        queueList.push(id);
-        save('queue', queueList);
-        textContentBtn(id);
-      }
+      queuedFilms = [openedMovie];
+      save('queue', queuedFilms);
     }
   }
+
+  // function addWatchList() {
+  //   const btnWatch = document.querySelector('#btn-to-watched');
+  //   if (btnWatch.classList.contains('active')) {
+  //     removeFromWatchedList(id);
+  //   } else {
+  //     let watchList = [];
+  //     let localWatchListJson = load('watched');
+  //     if (localWatchListJson) {
+  //       watchList = [...localWatchListJson];
+  //     }
+
+  //     let queueList = [];
+  //     let localQueueListJson = load('queue');
+  //     if (localQueueListJson) {
+  //       queueList = [...localQueueListJson];
+  //     }
+  //     let queueSet = new Set(queueList);
+  //     if (queueSet.has(id)) {
+  //       remove('queue');
+  //       let index = queueList.indexOf(id);
+  //       queueList.splice(index, 1);
+  //       save('queue', queueList);
+  //     }
+
+  //     const watchSet = new Set(watchList);
+  //     if (watchSet.has(id)) {
+  //       textContentBtn(id);
+  //     } else {
+  //       watchList.push(id);
+  //       save('watched', watchList);
+  //       textContentBtn(id);
+  //     }
+  //   }
+  // }
+
+  // function removeFromWatchedList(id) {
+  //   let watchList = [];
+  //   let localWatchListJson = load('watched');
+  //   if (localWatchListJson) {
+  //     watchList = [...localWatchListJson];
+  //   }
+
+  //   remove('watched');
+  //   let index = watchList.indexOf(id);
+  //   watchList.splice(index, 1);
+  //   save('watched', watchList);
+
+  //   textContentBtn();
+  // }
+
+  // function removeFromQueueList(id) {
+  //   let queueList = [];
+  //   let localQueueListJson = load('queue');
+  //   if (localQueueListJson) {
+  //     queueList = [...localQueueListJson];
+  //   }
+
+  //   remove('queue');
+  //   let index = queueList.indexOf(id);
+  //   queueList.splice(index, 1);
+  //   save('queue', queueList);
+
+  //   textContentBtn();
+  // }
+
+  // function addQueueList() {
+  //   const btnQueue = document.querySelector('#btn-to-queue');
+  //   if (btnQueue.classList.contains('active')) {
+  //     removeFromQueueList(id);
+  //   } else {
+  //     let queueList = [];
+  //     let localQueueListJson = load('queue');
+  //     if (localQueueListJson) {
+  //       queueList = [...localQueueListJson];
+  //     }
+
+  //     let watchList = [];
+  //     let localWatchListJson = load('watched');
+  //     if (localWatchListJson) {
+  //       watchList = [...localWatchListJson];
+  //     }
+  //     let watchSet = new Set(watchList);
+  //     if (watchSet.has(id)) {
+  //       remove('watched');
+  //       let index = watchList.indexOf(id);
+  //       watchList.splice(index, 1);
+  //       save('watched', watchList);
+  //     }
+
+  //     const queueSet = new Set(queueList);
+  //     if (queueSet.has(id)) {
+  //       textContentBtn(id);
+  //     } else {
+  //       queueList.push(id);
+  //       save('queue', queueList);
+  //       textContentBtn(id);
+  //     }
+  //   }
+  // }
 }
 
 function removeOldMarkup() {
@@ -349,48 +445,48 @@ function closeTrailerWindow() {
 }
 
 // ..............Watch / Queue
-function inList(id, list) {
-  let arrList = [];
-  let localListJson = load(list);
-  if (localListJson) {
-    arrList = [...localListJson];
-  }
-  const listSet = new Set(arrList);
-  return listSet.has(id);
-}
+// function inList(id, list) {
+//   let arrList = [];
+//   let localListJson = load(list);
+//   if (localListJson) {
+//     arrList = [...localListJson];
+//   }
+//   const listSet = new Set(arrList);
+//   return listSet.has(id);
+// }
 
-async function textContentBtn(id) {
-  const btnQueue = document.querySelector('#btn-to-queue');
-  const btnWatch = document.querySelector('#btn-to-watched');
-  if (inList(id, 'watched')) {
-    btnWatch.textContent = 'Added to watched';
-    btnWatch.disabled = true;
-    function changeText() {
-      btnWatch.disabled = false;
-      btnWatch.textContent = 'Remove from watched';
-      btnWatch.classList.add('active');
-    }
-    setTimeout(changeText, 500);
-  } else {
-    btnWatch.textContent = 'Add to watched';
-    btnWatch.classList.remove('active');
-    btnWatch.disabled = false;
-  }
+// async function textContentBtn(id) {
+//   const btnQueue = document.querySelector('#btn-to-queue');
+//   const btnWatch = document.querySelector('#btn-to-watched');
+//   if (inList(id, 'watched')) {
+//     btnWatch.textContent = 'Added to watched';
+//     btnWatch.disabled = true;
+//     function changeText() {
+//       btnWatch.disabled = false;
+//       btnWatch.textContent = 'Remove from watched';
+//       btnWatch.classList.add('active');
+//     }
+//     setTimeout(changeText, 500);
+//   } else {
+//     btnWatch.textContent = 'Add to watched';
+//     btnWatch.classList.remove('active');
+//     btnWatch.disabled = false;
+//   }
 
-  if (inList(id, 'queue')) {
-    btnQueue.textContent = 'Added to queue';
-    btnQueue.disabled = true;
-    function changeText() {
-      btnQueue.disabled = false;
-      btnQueue.textContent = 'Remove from queue';
-      btnQueue.classList.add('active');
-    }
-    setTimeout(changeText, 500);
-  } else {
-    btnQueue.textContent = 'Add to queue';
-    btnQueue.classList.remove('active');
-    btnQueue.disabled = false;
-  }
-}
+//   if (inList(id, 'queue')) {
+//     btnQueue.textContent = 'Added to queue';
+//     btnQueue.disabled = true;
+//     function changeText() {
+//       btnQueue.disabled = false;
+//       btnQueue.textContent = 'Remove from queue';
+//       btnQueue.classList.add('active');
+//     }
+//     setTimeout(changeText, 500);
+//   } else {
+//     btnQueue.textContent = 'Add to queue';
+//     btnQueue.classList.remove('active');
+//     btnQueue.disabled = false;
+//   }
+// }
 
 export { setGalleryClickListeners };
