@@ -32,3 +32,23 @@ getServerData(requestTypes.GENRE)
         makePagination(requestData.movies.total_pages, 20);
       });
   });
+
+const searchForm = document.querySelector('.header__form-block');
+const searchInput = document.querySelector('.header__form-input');
+/* const headerSearchError = document.querySelector('.visually-hidden'); */
+
+searchForm.addEventListener('click', e => {
+  e.preventDefault();
+  if (searchInput.value.trim().length) {
+    requestData.search = `${searchInput.value.trim()}`;
+    requestData.page = 1;
+    getServerData(requestTypes.SEARCH)
+      .then(movies => {
+        renderMoviesMarkup(movies);
+        return true;
+      })
+      .then(() => {
+        searchInput.value = '';
+      });
+  }
+});

@@ -129,30 +129,6 @@ export function getNextServerData() {
 
 //-----------------------------------------------------------------------
 
-//на старте:
-
-//запрос массива соответствия номера жанра и названия
-getServerData(requestTypes.GENRE)
-  .then(data => {
-    //сохраним его в глобальной переменной
-    requestData.genres = data.genres;
-    return true;
-  })
-  .then(() => {
-    requestData.page = 1;
-    getServerData(requestTypes.TRENDING)
-      .then(movies => {
-        renderMoviesMarkup(movies);
-      })
-      .then(() => {
-        // console.log(requestData.movies.total_pages);
-        makePaginationBtn(requestData.movies.total_pages);
-        makePagination(requestData.movies.total_pages, 20);
-      });
-  });
-
-//-----------------------------------------------------------------------
-
 //Следующие функции перенесутся в нужные файлы
 //Пока здесь для наглядности
 //-----------------------------------------------------------------------
@@ -304,7 +280,6 @@ export function setMovieGenresNames(movie) {
 //функция замены массива жанров на строку
 //параметры: массив объектов и массив соответствия номера жанра и названия
 function setGenresNames(movies, genresList) {
-
   // console.log(movies, genresList);
 
   //по всем объектам
@@ -331,19 +306,3 @@ function setGenresNames(movies, genresList) {
 }
 
 // --------------------------
-const searchForm = document.querySelector('.header__form-block');
-const searchInput = document.querySelector('.header__form-input');
-/* const headerSearchError = document.querySelector('.visually-hidden'); */
-
-searchForm.addEventListener('click', e => {
-  e.preventDefault();
-  requestData.search = `${searchInput.value}`;
-  requestData.page = 1;
-  getServerData(requestTypes.SEARCH).then(movies => {
-    renderMoviesMarkup(movies);
-    /*  if (requestData.search === []) {
-      return headerSearchError;
-    } */
-    searchInput.value = '';
-  });
-});
