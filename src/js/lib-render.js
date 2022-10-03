@@ -127,5 +127,3 @@ function changeQueueActiveBtn() {
   libQueueBtnEl.setAttribute('disabled', 'disabled');
   libWatchedBtnEl.removeAttribute('disabled');
 }
-
-onlibWatchedBtnEl();

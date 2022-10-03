@@ -1,12 +1,15 @@
 import { requestData, requestTypes, getServerData } from './fetchUrl';
 import { load, save, remove } from './localstorage';
 import { spinnerOff } from './spinner';
+import { libMarkup } from './libMarkup';
 
 const modalWindow = document.querySelector('.film-card');
 const overlay = document.querySelector('.overlay');
 const btnClose = document.querySelector('.icon-card-close');
 const modalTrailer = document.querySelector('.trailer');
 const btnTrailerClose = document.querySelector('.icon-video-close');
+const myLibrary = document.querySelector('.is-active-page.library');
+const galleryEl = document.querySelector('.films-gallery');
 
 function setGalleryClickListeners() {
   const filmCards = document.querySelectorAll('.films-gallery__item');
@@ -230,6 +233,13 @@ async function renderDataToModalCard(movie) {
         watched.splice(index, 1);
         save('watched', watched);
         btnWatch.innerHTML = 'add to watched';
+        if (myLibrary) {
+          clear();
+          let markup = watched.map(libMarkup).join('');
+          galleryEl.insertAdjacentHTML('afterbegin', markup);
+        }
+        setGalleryClickListeners();
+
         return;
       }
 
@@ -252,6 +262,7 @@ async function renderDataToModalCard(movie) {
       if (hasMovie) {
         return;
       }
+
       watchedFilms.push(openedMovie);
       save('watched', watchedFilms);
     } else {
@@ -270,6 +281,12 @@ async function renderDataToModalCard(movie) {
         queued.splice(index, 1);
         save('queue', queued);
         btnQueue.innerHTML = 'add to queue';
+        if (myLibrary) {
+          clear();
+          let markup = queued.map(libMarkup).join('');
+          galleryEl.insertAdjacentHTML('afterbegin', markup);
+        }
+        setGalleryClickListeners();
         return;
       }
 
@@ -365,6 +382,10 @@ function btnTextSaver(id) {
     btnQueue.textContent = 'remove from queue';
     return;
   }
+}
+
+function clear() {
+  galleryEl.innerHTML = '';
 }
 
 export { setGalleryClickListeners };
