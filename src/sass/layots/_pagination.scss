@@ -10,7 +10,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  color: #000;
+  color: black;
   cursor: pointer;
   text-decoration: none;
   border-radius: 5px;
@@ -24,13 +24,13 @@
 }
 
 .pagination__number:hover {
-  background-color: #ff6b01;
-  color: #ff6b01;
+  background-color: $text-accent;
+  color: black;
 }
 
 .active-button {
-  background-color: #ff6b01;
-  color: #ffffff;
+  background-color: $text-accent;
+  color: white;
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%),
     0 2px 1px -1px rgb(0 0 0 / 12%);
 }
@@ -58,12 +58,12 @@
   } */
 }
 .pagination__arrow.material-icons {
-  color: #f7f7f7;
+  color: $bg-vote-grey;
 }
 
 .pagination__arrow.material-icons:hover {
-  background-color: #ff6b01;
-  color: #ffffff;
+  background-color: $text-accent;
+  color: white;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
 }
@@ -87,7 +87,7 @@
 .material-icons {
   font-size: 16px;
   font-weight: 700;
-  color: #000;
+  color: black;
   transition: all 250ms ease-in-out;
 }
 
