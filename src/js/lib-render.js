@@ -2,6 +2,7 @@ import { load, save, remove } from './localstorage';
 import { setGalleryClickListeners } from './gallery-card-modal';
 import { makePagination, makePaginationBtn } from './pagination';
 import { setGalleryClickListeners } from './gallery-card-modal';
+import { spinnerOn, spinnerOff } from './spinner';
 
 const libWatchedBtnEl = document.querySelector(
   '.header__library-button > .btn-watch'
@@ -19,6 +20,7 @@ libQueueBtnEl.addEventListener('click', onlibQueueBtnEl);
 function onlibWatchedBtnEl() {
   clear();
   changeWatchActiveBtn();
+  spinnerOn();
   let watched = load('watched');
   if (!watched) {
     return;
@@ -62,13 +64,14 @@ function onlibWatchedBtnEl() {
     )
     .join('');
   galleryEl.insertAdjacentHTML('afterbegin', markup);
-
+  spinnerOff();
   setGalleryClickListeners();
 }
 
 function onlibQueueBtnEl() {
   clear();
   changeQueueActiveBtn();
+  spinnerOn();
   let queue = load('queue');
   if (!queue) {
     return;
@@ -111,6 +114,7 @@ function onlibQueueBtnEl() {
     )
     .join('');
   galleryEl.insertAdjacentHTML('afterbegin', markup);
+  spinnerOff();
   setGalleryClickListeners();
 }
 
@@ -127,5 +131,3 @@ function changeQueueActiveBtn() {
   libQueueBtnEl.setAttribute('disabled', 'disabled');
   libWatchedBtnEl.removeAttribute('disabled');
 }
-
-onlibWatchedBtnEl();
