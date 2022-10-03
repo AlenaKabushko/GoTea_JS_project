@@ -1,10 +1,3 @@
-import {
-  requestData,
-  requestTypes,
-  getServerData,
-  renderMoviesMarkup,
-  markupList,
-} from './fetchUrl.js';
 import { spinnerOn, spinnerOff } from './spinner';
 import { fillGenresFiltr } from './filter';
 import { PaginationInstnce } from '../index';

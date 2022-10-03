@@ -1,10 +1,3 @@
-import {
-  requestData,
-  requestTypes,
-  getServerData,
-  getNextServerData,
-  renderMoviesMarkup,
-} from './fetchUrl.js';
 import { getMultiOption, getOption, setOption } from './select.js';
 import { save, load } from './localstorage';
 
