@@ -1,7 +1,8 @@
 .spinner-box {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 45%;
+    z-index: 1000;
     display: flex;
     justify-content: center;
 }

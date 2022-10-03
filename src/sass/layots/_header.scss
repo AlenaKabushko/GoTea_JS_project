@@ -59,17 +59,17 @@
 }
     &__button-fon {
         position: absolute;
-        top: 195px;
-        right: 5px;
+        top: 23px;
+        right: 20px;
         color: $text-secondary;
         background-color: transparent;
         border: none;
         cursor: pointer;
 
-        @media screen and (min-width: 768px) {
-            bottom: 5px;
-            right: 0;
-        }
+        // @media screen and (min-width: 768px) {
+        //     bottom: 5px;
+        //     right: 0;
+        // }
     }
     &__sun-button {
         width: 35px;
