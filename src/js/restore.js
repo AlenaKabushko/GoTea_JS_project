@@ -7,18 +7,10 @@ import {
 } from './fetchUrl.js';
 import { getMultiOption } from './select.js';
 import { save, load } from './localstorage';
-import { makePagination, makePaginationBtn } from './pagination';
 
 const nameConfig = 'config';
 const classGenres = 'filter-genres';
 const classYears = 'filter-years';
-
-// let config = {
-//   requestData: {},
-//   genres: '',
-//   years: '',
-//   filterOn: 0,
-// };
 
 export function saveConfig() {
   const selectorYears = document.querySelector(`.custom-select.${classYears}`);

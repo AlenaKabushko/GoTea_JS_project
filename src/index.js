@@ -7,7 +7,6 @@ import {
   renderMoviesMarkup,
 } from './js/fetchUrl';
 import './js/firebase';
-import './js/start';
 import './js/search';
 import './js/select';
 import './js/filter';
