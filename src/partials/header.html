@@ -17,11 +17,7 @@
             Log in
           </button>
         </li>
-        <li class="header__navigation-item visually-hidden">
-          <button class="header__navigation-button" type="button" data-logout>
-            Log out
-          </button>
-        </li>
+   <li class="header__navigation-item"><button class="header__navigation-button logout-btn visually-hidden" type="button">Log out</button></li>
         <li class="header__navigation-item">
           <a class="header__navigation-link is-active-page" href="index.html"
             >Home</a
@@ -29,7 +25,7 @@
         </li>
         <li class="header__navigation-item">
 
-          <a class="header__navigation-link" href="library.html">My library</a>
+          <a class="header__navigation-link disabled library" href="library.html">My library</a>
 
         </li>
         <li class="header__navigation-item">
@@ -42,6 +38,7 @@
         </li>
       </ul>
     </nav>
+    <div class="header__library-user"></div>
     <form action="" class="header__form">
       <div class="header__form-block">
         <input
@@ -57,6 +54,7 @@
           </svg>
         </button>
       </div>
+      
     </form>
     <p class="header__text-warning">
       Search result not successful. Enter the correct movie name and repeat

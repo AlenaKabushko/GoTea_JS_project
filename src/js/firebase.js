@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth"
 import { getDatabase, set, ref, onValue } from "firebase/database"
 
 const firebaseConfig = {
@@ -18,10 +18,13 @@ const database = getDatabase(app);
 
 const formReg = document.querySelector('.reg-form')
 const formLogin = document.querySelector('.login-form')
-const logoutBtn = document.querySelector('[data-logout]')
+const logoutBtn = document.querySelector('.logout-btn')
 const openModalBtn = document.querySelector("[ data-modal-open]")
 const closeModalBtn = document.querySelector("[data-modal-close]")
 const modal = document.querySelector("[data-modal]")
+const libraryBtn = document.querySelector('.library')
+const userNameContainer = document.querySelector('.header__library-user')
+// const libraryHeader = document.querySelector(".header__library-user")
 
 
 formReg.addEventListener('submit', createUser)
@@ -31,11 +34,12 @@ logoutBtn.addEventListener('click', logOutUser)
 openModalBtn.addEventListener("click", toggleModal);
 closeModalBtn.addEventListener("click", toggleModal);
 
-  function toggleModal() {
+function toggleModal() {
     modal.classList.toggle("visually-hidden");
   };
 
 
+// Функція створення користувача - реєстрація
 function createUser(event) {
     event.preventDefault();
     const formElements = {
@@ -44,11 +48,13 @@ function createUser(event) {
     username: event.currentTarget.elements.username.value   
     }
     // console.log(formElements)
+  // Створення користувача за поштою та емейлом
      createUserWithEmailAndPassword(auth, formElements.email, formElements.password, formElements.username)
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
-          alert(`User ${formElements.username} created`)
+          alert(`Welcome to Filmoteka, ${formElements.username}!`)
+          modal.classList.toggle("visually-hidden")
           return user
         })
        .then((user) => {
@@ -66,7 +72,10 @@ function createUser(event) {
             
        });
   event.currentTarget.reset()
+  
 }
+
+// Функция входу користувача та отримання його данних
 function getUser(event) {
      event.preventDefault();
     const formElements = {
@@ -79,19 +88,33 @@ function getUser(event) {
     // Signed in 
     const user = userCredential.user;
 
-    const userId = auth.currentUser.uid
+    
+    // const userId = auth.currentUser.uid
+    // const currentUser = auth.currentUser
     // console.log(userId)
+    
 
     const db = getDatabase();
     const nameRef = ref(db, 'users/' + user.uid + '/username')
     onValue (nameRef, (snapshot) => {
       const name = snapshot.val();
       // console.log(name)
-      
+    
+    const user = {
+        id: auth.currentUser.uid,
+        email: auth.currentUser.email,
+        name: snapshot.val(),
+      }
       alert(`Welcome back, ${name}`)
+      
       document.location.href = "library.html"  //Перехід на сторінку Library після авторизації
-      // openModalBtn.classList.add('visually-hidden')
+      logoutBtn.classList.toggle('visually-hidden')
+      libraryBtn.classList.remove('disabled')
+      
+      modal.classList.toggle("visually-hidden")
+      // userNameContainer.insertAdjacentHTML('afterbegin', `<p>${name} profile</p>`)
     });
+    return user;
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -99,11 +122,43 @@ function getUser(event) {
     alert(errorMessage)
   });
 }
+
+const authCheking = (() => {
+  onAuthStateChanged(auth, (user) => {
+  if (user) {
+      //Getting users name
+      const db = getDatabase();
+      const nameRef = ref(db, 'users/' + user.uid + '/username')
+      onValue(nameRef, (snapshot) => {
+      const name = snapshot.val();
+      
+      const userIn = {
+        id: auth.currentUser.uid,
+        email: auth.currentUser.email,
+        name: snapshot.val(),
+      }  
+        console.log(userIn)
+        userNameContainer.insertAdjacentHTML('afterbegin', `<p>${name}'s profile</p>`)
+        openModalBtn.classList.add('visually-hidden')
+        logoutBtn.classList.remove('visually-hidden')
+        libraryBtn.classList.remove('disabled')
+
+      })
+
+    // ...
+  } else {
+    console.log('Nobody is here')
+  }
+});
+
+})
+
+authCheking()
  //Функція виходу зі сторінки користувача
 function logOutUser(event) {
   signOut(auth).then(() => {
     document.location.href = "index.html"
-    // modalContainer.classList.add('visually-hidden')
+    
     // Sign-out successful.
   }).catch((error) => {
     // An error happened.
@@ -112,4 +167,7 @@ function logOutUser(event) {
     alert(errorMessage)
   });
 }
+
+
+
 
