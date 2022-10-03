@@ -8,13 +8,6 @@ import {
   setMultiOption,
 } from './select.js';
 
-import {
-  requestData,
-  requestTypes,
-  getServerData,
-  renderMoviesMarkup,
-} from './fetchUrl.js';
-
 import { classGenres, classYears } from './restore';
 
 import { PaginationInstnce } from '../index';
