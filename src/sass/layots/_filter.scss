@@ -15,7 +15,7 @@
 }
 
 .custom-select-container,
-filter-buttons-container {
+.filter-buttons-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -123,9 +123,6 @@ div .same-as-selected {
   background-color: #000;
   color: #fff;
 }
-
-// .filter-buttons-container {
-// }
 
 .filter-btn {
   color: #fff;
