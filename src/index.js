@@ -72,3 +72,5 @@ getServerData(requestTypes.GENRE)
       });
     }
   });
+
+export { PaginationInstnce };
