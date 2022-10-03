@@ -208,9 +208,9 @@ async function renderDataToModalCard(cardNode) {
 
   // ..............Watch / Queue
 
-  // textContentBtn(id);
   const btnQueue = document.querySelector('#btn-to-queue');
   const btnWatch = document.querySelector('#btn-to-watched');
+  btnTextSaver(id);
 
   btnQueue.addEventListener('click', onQueueBtnClick);
   btnWatch.addEventListener('click', onWatchBtnClick);
@@ -255,22 +255,6 @@ async function renderDataToModalCard(cardNode) {
     }
   }
 
-  // function removeFromWatched(e) {
-  //   if (e.target.className === 'btn-watch-modal') {
-  //     if (e.target.innerHTML === 'remove from watched') {
-  //       const watchItem = load('wathced');
-  //       let repeated = watchItem.find(item => item.id === openedMovie.id);
-  //       console.log(repeated);
-  // save(
-  //   'watched',
-  //   watchItem.filter(item => item.id !== openedMovie.id)
-  // );
-  // btnWatch.innerHTML = 'add to watched';
-
-  //       return;
-  //     }
-  //   }
-  // }
   function onQueueBtnClick(e) {
     let openedMovie = movie;
 
@@ -310,106 +294,6 @@ async function renderDataToModalCard(cardNode) {
       save('queue', queuedFilms);
     }
   }
-
-  // function addWatchList() {
-  //   const btnWatch = document.querySelector('#btn-to-watched');
-  //   if (btnWatch.classList.contains('active')) {
-  //     removeFromWatchedList(id);
-  //   } else {
-  //     let watchList = [];
-  //     let localWatchListJson = load('watched');
-  //     if (localWatchListJson) {
-  //       watchList = [...localWatchListJson];
-  //     }
-
-  //     let queueList = [];
-  //     let localQueueListJson = load('queue');
-  //     if (localQueueListJson) {
-  //       queueList = [...localQueueListJson];
-  //     }
-  //     let queueSet = new Set(queueList);
-  //     if (queueSet.has(id)) {
-  //       remove('queue');
-  //       let index = queueList.indexOf(id);
-  //       queueList.splice(index, 1);
-  //       save('queue', queueList);
-  //     }
-
-  //     const watchSet = new Set(watchList);
-  //     if (watchSet.has(id)) {
-  //       textContentBtn(id);
-  //     } else {
-  //       watchList.push(id);
-  //       save('watched', watchList);
-  //       textContentBtn(id);
-  //     }
-  //   }
-  // }
-
-  // function removeFromWatchedList(id) {
-  //   let watchList = [];
-  //   let localWatchListJson = load('watched');
-  //   if (localWatchListJson) {
-  //     watchList = [...localWatchListJson];
-  //   }
-
-  //   remove('watched');
-  //   let index = watchList.indexOf(id);
-  //   watchList.splice(index, 1);
-  //   save('watched', watchList);
-
-  //   textContentBtn();
-  // }
-
-  // function removeFromQueueList(id) {
-  //   let queueList = [];
-  //   let localQueueListJson = load('queue');
-  //   if (localQueueListJson) {
-  //     queueList = [...localQueueListJson];
-  //   }
-
-  //   remove('queue');
-  //   let index = queueList.indexOf(id);
-  //   queueList.splice(index, 1);
-  //   save('queue', queueList);
-
-  //   textContentBtn();
-  // }
-
-  // function addQueueList() {
-  //   const btnQueue = document.querySelector('#btn-to-queue');
-  //   if (btnQueue.classList.contains('active')) {
-  //     removeFromQueueList(id);
-  //   } else {
-  //     let queueList = [];
-  //     let localQueueListJson = load('queue');
-  //     if (localQueueListJson) {
-  //       queueList = [...localQueueListJson];
-  //     }
-
-  //     let watchList = [];
-  //     let localWatchListJson = load('watched');
-  //     if (localWatchListJson) {
-  //       watchList = [...localWatchListJson];
-  //     }
-  //     let watchSet = new Set(watchList);
-  //     if (watchSet.has(id)) {
-  //       remove('watched');
-  //       let index = watchList.indexOf(id);
-  //       watchList.splice(index, 1);
-  //       save('watched', watchList);
-  //     }
-
-  //     const queueSet = new Set(queueList);
-  //     if (queueSet.has(id)) {
-  //       textContentBtn(id);
-  //     } else {
-  //       queueList.push(id);
-  //       save('queue', queueList);
-  //       textContentBtn(id);
-  //     }
-  //   }
-  // }
 }
 
 function removeOldMarkup() {
@@ -444,7 +328,144 @@ function closeTrailerWindow() {
   overlay.style.zIndex = 20;
 }
 
+function btnTextSaver(id) {
+  const btnQueue = document.querySelector('#btn-to-queue');
+  const btnWatch = document.querySelector('#btn-to-watched');
+
+  let toWatch = load('watched');
+  let toQueue = load('queue');
+  if (toWatch === undefined) {
+    return;
+  }
+
+  if (toQueue === undefined) {
+    return;
+  }
+
+  if (
+    toWatch.find(film => film.id === id) &&
+    toQueue.find(film => film.id === id)
+  ) {
+    btnWatch.textContent = 'remove from watched';
+    btnQueue.textContent = 'remove from queue';
+    return;
+  }
+
+  if (toWatch.find(film => film.id === id)) {
+    btnWatch.textContent = 'remove from watched';
+    return;
+  }
+
+  if (toQueue.find(film => film.id === id)) {
+    btnQueue.textContent = 'remove from queue';
+    return;
+  }
+}
+
+export { setGalleryClickListeners };
+
 // ..............Watch / Queue
+
+// function addWatchList() {
+//   const btnWatch = document.querySelector('#btn-to-watched');
+//   if (btnWatch.classList.contains('active')) {
+//     removeFromWatchedList(id);
+//   } else {
+//     let watchList = [];
+//     let localWatchListJson = load('watched');
+//     if (localWatchListJson) {
+//       watchList = [...localWatchListJson];
+//     }
+
+//     let queueList = [];
+//     let localQueueListJson = load('queue');
+//     if (localQueueListJson) {
+//       queueList = [...localQueueListJson];
+//     }
+//     let queueSet = new Set(queueList);
+//     if (queueSet.has(id)) {
+//       remove('queue');
+//       let index = queueList.indexOf(id);
+//       queueList.splice(index, 1);
+//       save('queue', queueList);
+//     }
+
+//     const watchSet = new Set(watchList);
+//     if (watchSet.has(id)) {
+//       textContentBtn(id);
+//     } else {
+//       watchList.push(id);
+//       save('watched', watchList);
+//       textContentBtn(id);
+//     }
+//   }
+// }
+
+// function removeFromWatchedList(id) {
+//   let watchList = [];
+//   let localWatchListJson = load('watched');
+//   if (localWatchListJson) {
+//     watchList = [...localWatchListJson];
+//   }
+
+//   remove('watched');
+//   let index = watchList.indexOf(id);
+//   watchList.splice(index, 1);
+//   save('watched', watchList);
+
+//   textContentBtn();
+// }
+
+// function removeFromQueueList(id) {
+//   let queueList = [];
+//   let localQueueListJson = load('queue');
+//   if (localQueueListJson) {
+//     queueList = [...localQueueListJson];
+//   }
+
+//   remove('queue');
+//   let index = queueList.indexOf(id);
+//   queueList.splice(index, 1);
+//   save('queue', queueList);
+
+//   textContentBtn();
+// }
+
+// function addQueueList() {
+//   const btnQueue = document.querySelector('#btn-to-queue');
+//   if (btnQueue.classList.contains('active')) {
+//     removeFromQueueList(id);
+//   } else {
+//     let queueList = [];
+//     let localQueueListJson = load('queue');
+//     if (localQueueListJson) {
+//       queueList = [...localQueueListJson];
+//     }
+
+//     let watchList = [];
+//     let localWatchListJson = load('watched');
+//     if (localWatchListJson) {
+//       watchList = [...localWatchListJson];
+//     }
+//     let watchSet = new Set(watchList);
+//     if (watchSet.has(id)) {
+//       remove('watched');
+//       let index = watchList.indexOf(id);
+//       watchList.splice(index, 1);
+//       save('watched', watchList);
+//     }
+
+//     const queueSet = new Set(queueList);
+//     if (queueSet.has(id)) {
+//       textContentBtn(id);
+//     } else {
+//       queueList.push(id);
+//       save('queue', queueList);
+//       textContentBtn(id);
+//     }
+//   }
+// }
+
 // function inList(id, list) {
 //   let arrList = [];
 //   let localListJson = load(list);
@@ -489,4 +510,19 @@ function closeTrailerWindow() {
 //   }
 // }
 
-export { setGalleryClickListeners };
+// function removeFromWatched(e) {
+//   if (e.target.className === 'btn-watch-modal') {
+//     if (e.target.innerHTML === 'remove from watched') {
+//       const watchItem = load('wathced');
+//       let repeated = watchItem.find(item => item.id === openedMovie.id);
+//       console.log(repeated);
+// save(
+//   'watched',
+//   watchItem.filter(item => item.id !== openedMovie.id)
+// );
+// btnWatch.innerHTML = 'add to watched';
+
+//       return;
+//     }
+//   }
+// }

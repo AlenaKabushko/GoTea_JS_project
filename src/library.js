@@ -8,4 +8,4 @@ import './js/pagination';
 import './js/switcherTheme';
 import './js/button-up';
 // import './js/library-render';
-
+import './js/lib-render';
