@@ -10,8 +10,8 @@ import { save, load } from './localstorage';
 
 const nameConfig = 'config';
 const nameLibrary = 'library';
-const classGenres = 'filter-genres';
-const classYears = 'filter-years';
+export const classGenres = 'filter-genres';
+export const classYears = 'filter-years';
 
 export function saveConfig() {
   const selectorYears = document.querySelector(`.custom-select.${classYears}`);
@@ -44,7 +44,6 @@ export function restoreConfig() {
     getNextServerData().then(movies => {
       return renderMoviesMarkup(movies);
     });
-
   } else {
     requestData.page = 1;
     return getServerData(requestTypes.TRENDING).then(movies => {
@@ -52,7 +51,6 @@ export function restoreConfig() {
       saveConfig();
       renderMoviesMarkup(movies);
     });
-
   }
 }
 
