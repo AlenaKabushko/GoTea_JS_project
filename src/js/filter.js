@@ -17,6 +17,8 @@ import {
 
 import { classGenres, classYears } from './restore';
 
+import { PaginationInstnce } from '../index';
+
 export function fillGenresFiltr(classSelect) {
   const markup = markupFilterGenres();
   const select = document.querySelector(`.custom-multi-select.${classSelect}`);
@@ -48,10 +50,14 @@ filterBtnUse.addEventListener('click', function (e) {
   requestData.discover += filterYears;
   if (requestData.discover) {
     getServerData(requestTypes.DISCOVER).then(movies => {
+      PaginationInstnce.currentPage = 1;
+      PaginationInstnce.setTotalPages(Math.round(movies.total_pages / 20));
       renderMoviesMarkup(movies);
     });
   } else {
     getServerData(requestTypes.TRENDING).then(movies => {
+      PaginationInstnce.currentPage = 1;
+      PaginationInstnce.setTotalPages(Math.round(movies.total_pages / 20));
       renderMoviesMarkup(movies);
     });
   }
@@ -63,6 +69,8 @@ filterBtnReset.addEventListener('click', function (e) {
   setMultiOption(classGenres, '');
   requestTypes.page = 1;
   getServerData(requestTypes.TRENDING).then(movies => {
+    PaginationInstnce.currentPage = 1;
+    PaginationInstnce.setTotalPages(Math.round(movies.total_pages / 20));
     renderMoviesMarkup(movies);
   });
 });
