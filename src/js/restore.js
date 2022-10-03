@@ -44,28 +44,16 @@ export function restoreConfig() {
     requestData.movie = config.requestData.movie;
     requestData.videos = config.requestData.videos;
 
-    getNextServerData()
-      .then(movies => {
-        return renderMoviesMarkup(movies);
-      })
-      .then(() => {
-        // console.log('total pages', requestData.movies.total_pages);
-        // makePaginationBtn(requestData.movies.total_pages);
-        // makePagination(requestData.movies.total_pages, 20);
-      });
+    getNextServerData().then(movies => {
+      return renderMoviesMarkup(movies);
+    });
   } else {
     console.log(false);
     requestData.page = 1;
-    return getServerData(requestTypes.TRENDING)
-      .then(movies => {
-        requestData.movies = movies;
-        saveConfig();
-        renderMoviesMarkup(movies);
-      })
-      .then(() => {
-        // console.log('total pages', requestData.movies.total_pages);
-        // makePaginationBtn(requestData.movies.total_pages);
-        // makePagination(requestData.movies.total_pages, 20);
-      });
+    return getServerData(requestTypes.TRENDING).then(movies => {
+      requestData.movies = movies;
+      saveConfig();
+      renderMoviesMarkup(movies);
+    });
   }
 }
