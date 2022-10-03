@@ -39,7 +39,7 @@ function toggleModal() {
   };
 
 
-
+// Функція створення користувача - реєстрація
 function createUser(event) {
     event.preventDefault();
     const formElements = {
@@ -53,7 +53,8 @@ function createUser(event) {
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
-          alert(`User ${formElements.username} created`)
+          alert(`Welcome to Filmoteka, ${formElements.username}!`)
+          modal.classList.toggle("visually-hidden")
           return user
         })
        .then((user) => {
@@ -71,6 +72,7 @@ function createUser(event) {
             
        });
   event.currentTarget.reset()
+  
 }
 
 // Функция входу користувача та отримання його данних
@@ -105,10 +107,10 @@ function getUser(event) {
       }
       alert(`Welcome back, ${name}`)
       
-      // document.location.href = "library.html"  //Перехід на сторінку Library після авторизації
-      
+      document.location.href = "library.html"  //Перехід на сторінку Library після авторизації
+      logoutBtn.classList.toggle('visually-hidden')
       libraryBtn.classList.remove('disabled')
-      logoutBtn.classList.remove('visually-hidden')
+      
       modal.classList.toggle("visually-hidden")
       // userNameContainer.insertAdjacentHTML('afterbegin', `<p>${name} profile</p>`)
     });
@@ -142,8 +144,7 @@ const authCheking = (() => {
         libraryBtn.classList.remove('disabled')
 
       })
-    
-    
+
     // ...
   } else {
     console.log('Nobody is here')
