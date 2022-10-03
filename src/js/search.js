@@ -15,12 +15,15 @@ const headerSearchError = document.querySelector('.header__text-warning');
 
 searchBtn.addEventListener('click', onBtnSearcClick);
 
-function onBtnSearcClick(e) {
+function onBtnSearcClick(e) {  
+  
   e.preventDefault();
   if (searchInput.value !== '' && searchInput.value !== ' ') {
+    
     requestData.search = `${searchInput.value}`;
     requestData.page = 1;
     getServerData(requestTypes.SEARCH).then(movies => {
+      spinnerOn();
       PaginationInstnce.currentPage = 1;
       PaginationInstnce.setTotalPages(Math.min(500, movies.total_pages));
 

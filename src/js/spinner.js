@@ -6,6 +6,7 @@ export function spinnerOff() {
 }
 
 export function spinnerOn() {
+    console.log("sp work")
     spinnerBoxRef.classList.remove("none")
 }
 
