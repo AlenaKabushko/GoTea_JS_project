@@ -26,7 +26,6 @@ const PaginationInstnce = new Pagination(
   document.getElementById('pagination'),
   {
     countPoint: 5,
-    stepInterval: 5,
     totalPages: 10,
     onShow: paginationOnClick,
   }
@@ -47,19 +46,11 @@ getServerData(requestTypes.GENRE)
   .then(() => {
     let config = load('config');
     if (config) {
-      requestData.page = config.requestData.page;
-      requestData.request = config.requestData.request;
-      requestData.discover = config.requestData.discover;
-      requestData.id = config.requestData.id;
-      requestData.search = config.requestData.search;
-      requestData.movies = config.requestData.movies;
-      requestData.genres = config.requestData.genres;
-      requestData.movie = config.requestData.movie;
-      requestData.videos = config.requestData.videos;
+      requestData = { ...config.requestData };
 
       PaginationInstnce.currentPage = requestData.page;
       getNextServerData().then(movies => {
-        PaginationInstnce.setTotalPages(movies.total_pages);
+        PaginationInstnce.setTotalPages(Math.min(500, movies.total_pages));
         renderMoviesMarkup(movies);
       });
     } else {
@@ -68,7 +59,7 @@ getServerData(requestTypes.GENRE)
       getServerData(requestTypes.TRENDING).then(movies => {
         requestData.movies = movies;
         PaginationInstnce.currentPage = 1;
-        PaginationInstnce.setTotalPages(movies.total_pages);
+        PaginationInstnce.setTotalPages(Math.min(500, movies.total_pages));
         saveConfig();
         renderMoviesMarkup(movies);
       });
