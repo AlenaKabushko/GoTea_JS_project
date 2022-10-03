@@ -3,7 +3,6 @@ import { spinnerOn, spinnerOff } from './spinner';
 
 // для добавления кликов по отрендеренным карточкам
 import { setGalleryClickListeners } from './gallery-card-modal';
-import { makePagination, makePaginationBtn } from './pagination';
 import { saveConfig } from './restore';
 
 const refs = {
