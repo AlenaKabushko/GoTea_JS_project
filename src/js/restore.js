@@ -28,30 +28,30 @@ export function saveConfig() {
     config.genres = getMultiOption(classGenres);
     config.years = selectorYears.querySelector('.select-selected').textContent;
     save(nameConfig, config);
-    console.log('save', config);
   }
 }
 
 export function restoreConfig() {
   let config = load(nameConfig);
-  console.log('load', config);
   if (config) {
-    console.log(true);
-    requestData = config.requestData;
-    console.log('load config', config);
-    console.log('load config.requestData', config.requestData);
-    console.log('requestData', requestData);
-    const r = config.requestData;
-    console.log('r', r);
+    requestData.page = config.requestData.page;
+    requestData.request = config.requestData.request;
+    requestData.discover = config.requestData.discover;
+    requestData.id = config.requestData.id;
+    requestData.search = config.requestData.search;
+    requestData.movies = config.requestData.movies;
+    requestData.genres = config.requestData.genres;
+    requestData.movie = config.requestData.movie;
+    requestData.videos = config.requestData.videos;
 
     getNextServerData()
       .then(movies => {
         return renderMoviesMarkup(movies);
       })
       .then(() => {
-        console.log('total pages', requestData.movies.total_pages);
-        makePaginationBtn(requestData.movies.total_pages);
-        makePagination(requestData.movies.total_pages, 20);
+        // console.log('total pages', requestData.movies.total_pages);
+        // makePaginationBtn(requestData.movies.total_pages);
+        // makePagination(requestData.movies.total_pages, 20);
       });
   } else {
     console.log(false);
@@ -63,9 +63,9 @@ export function restoreConfig() {
         renderMoviesMarkup(movies);
       })
       .then(() => {
-        console.log('total pages', requestData.movies.total_pages);
-        makePaginationBtn(requestData.movies.total_pages);
-        makePagination(requestData.movies.total_pages, 20);
+        // console.log('total pages', requestData.movies.total_pages);
+        // makePaginationBtn(requestData.movies.total_pages);
+        // makePagination(requestData.movies.total_pages, 20);
       });
   }
 }
