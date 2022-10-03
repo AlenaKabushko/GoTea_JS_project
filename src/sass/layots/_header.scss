@@ -59,14 +59,14 @@
 }
     &__button-fon {
         position: absolute;
-        bottom: 20px;
-        right: 30px;
+        top: 195px;
+        right: 5px;
         color: $text-secondary;
         background-color: transparent;
         border: none;
         cursor: pointer;
 
-        @media screen and (max-width: 767px) {
+        @media screen and (min-width: 768px) {
             bottom: 5px;
             right: 0;
         }
@@ -179,7 +179,7 @@
         }
     }
     &__form {
-        margin-top: 50px;
+        margin-top: 70px;
         width: 280px;
         margin-left: auto;
         margin-right: auto;
@@ -336,6 +336,12 @@
         margin-left: 16px;
     }
 }
+}
+
+.mobile-header {
+    @media screen and (max-width: 330px) {
+        font-size: 10px;
+    }
 }
 
 @keyframes turnOver {
