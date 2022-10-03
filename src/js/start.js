@@ -1,13 +1,9 @@
-import {
-  requestData,
-  requestTypes,
-  getServerData,
-  renderMoviesMarkup,
-} from './fetchUrl.js';
+import { requestData, requestTypes, getServerData } from './fetchUrl.js';
 
 import { spinnerOn, spinnerOff } from './spinner';
 import { fillGenresFiltr } from './filter';
-import { makePagination, makePaginationBtn } from './pagination';
+// import { makePagination, makePaginationBtn } from './pagination';
+import { restoreConfig } from './restore';
 
 //-----------------------------------------------------------------------
 //на старте:
@@ -20,15 +16,9 @@ getServerData(requestTypes.GENRE)
     fillGenresFiltr('filter-genres');
     return true;
   })
-  .then(() => {
-    requestData.page = 1;
-    getServerData(requestTypes.TRENDING)
-      .then(movies => {
-        renderMoviesMarkup(movies);
-      })
-      .then(() => {
-        console.log(requestData.movies.total_pages);
-        makePaginationBtn(requestData.movies.total_pages);
-        makePagination(requestData.movies.total_pages, 20);
-      });
-  });
+  .then(() => restoreConfig());
+// .then(() => {
+//   console.log('total pages', requestData.movies.total_pages);
+//   makePaginationBtn(requestData.movies.total_pages);
+//   makePagination(requestData.movies.total_pages, 20);
+// });
