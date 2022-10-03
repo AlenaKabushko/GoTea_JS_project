@@ -1,3 +1,11 @@
+import {
+  requestData,
+  requestTypes,
+  getServerData,
+  getNextServerData,
+  renderMoviesMarkup,
+} from './fetchUrl';
+
 import { spinnerOn, spinnerOff } from './spinner';
 import { fillGenresFiltr } from './filter';
 import { PaginationInstnce } from '../index';
