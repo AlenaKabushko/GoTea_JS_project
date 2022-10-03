@@ -4,6 +4,7 @@ import './js/start';
 import './js/search';
 import './js/select';
 import './js/filter';
+import './js/restore';
 import './js/gallery-card-modal';
 import './js/localstorage';
 import './js/spinner';

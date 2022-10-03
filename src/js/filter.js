@@ -2,6 +2,7 @@ import {
   createCustomOneSelect,
   setOption,
   getOption,
+  getOptionNum,
   createCustomMultiSelect,
   getMultiOption,
 } from './select.js';
@@ -13,13 +14,12 @@ import {
   renderMoviesMarkup,
 } from './fetchUrl.js';
 
-createCustomOneSelect();
-
 export function fillGenresFiltr(classSelect) {
   const markup = markupFilterGenres();
   const select = document.querySelector(`.custom-multi-select.${classSelect}`);
   select.innerHTML = markup;
   createCustomMultiSelect();
+  createCustomOneSelect();
 }
 
 function markupFilterGenres() {
@@ -34,12 +34,13 @@ function markupFilterGenres() {
 
 const filterBtn = document.querySelector('.filter-btn');
 filterBtn.addEventListener('click', function (e) {
+  requestData.idxYears = getOptionNum('filter-years');
   const filterYears = getOption('filter-years');
-  const filterGendes = getMultiOption('filter-genres');
+  requestData.valuesGenres = getMultiOption('filter-genres');
   requestData.page = 1;
   requestData.discover = '';
-  if (filterGendes.length) {
-    requestData.discover = `&with_genres=${filterGendes}`;
+  if (requestData.valuesGenres.length) {
+    requestData.discover = `&with_genres=${requestData.valuesGenres}`;
   }
   requestData.discover += filterYears;
   if (requestData.discover) {

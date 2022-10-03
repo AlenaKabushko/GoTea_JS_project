@@ -5,7 +5,7 @@ import {
   getNextServerData,
   renderMoviesMarkup,
 } from './fetchUrl.js';
-import { getMultiOption } from './select.js';
+import { getMultiOption, getOption, setOption } from './select.js';
 import { save, load } from './localstorage';
 import { makePagination, makePaginationBtn } from './pagination';
 
@@ -46,7 +46,8 @@ export function restoreConfig() {
     requestData.genres = config.requestData.genres;
     requestData.movie = config.requestData.movie;
     requestData.videos = config.requestData.videos;
-
+    setOption(classYears, config.requestData.idxYears);
+    console.log(config.requestData.valuesGenres);
     getNextServerData().then(movies => {
       return renderMoviesMarkup(movies);
     });
