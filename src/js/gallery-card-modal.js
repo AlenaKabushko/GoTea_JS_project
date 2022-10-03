@@ -234,10 +234,12 @@ async function renderDataToModalCard(movie) {
         save('watched', watched);
         btnWatch.innerHTML = 'add to watched';
         if (myLibrary) {
+          btnWatch.classList.add('visually-hidden');
           clear();
           let markup = watched.map(libMarkup).join('');
           galleryEl.insertAdjacentHTML('afterbegin', markup);
         }
+
         setGalleryClickListeners();
 
         return;
@@ -282,6 +284,7 @@ async function renderDataToModalCard(movie) {
         save('queue', queued);
         btnQueue.innerHTML = 'add to queue';
         if (myLibrary) {
+          btnQueue.classList.add('visually-hidden');
           clear();
           let markup = queued.map(libMarkup).join('');
           galleryEl.insertAdjacentHTML('afterbegin', markup);
