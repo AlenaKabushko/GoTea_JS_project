@@ -20,19 +20,19 @@ import './js/modal-teem';
 import './js/switcherTheme';
 import './js/button-up';
 import { Pagination } from './js/pagination';
+import { saveConfig } from './js/restore';
 
 const PaginationInstnce = new Pagination(
   document.getElementById('pagination'),
   {
     countPoint: 5,
+    stepInterval: 5,
     totalPages: 10,
     onShow: paginationOnClick,
   }
 );
 
 function paginationOnClick(pageNumber) {
-  console.log(pageNumber);
-
   requestData.page = pageNumber;
   getNextServerData().then(movies => {
     renderMoviesMarkup(movies);
@@ -59,7 +59,7 @@ getServerData(requestTypes.GENRE)
 
       PaginationInstnce.currentPage = requestData.page;
       getNextServerData().then(movies => {
-        PaginationInstnce.setTotalPages(movies.total_pages);
+        PaginationInstnce.setTotalPages(Math.round(movies.total_pages / 20));
         renderMoviesMarkup(movies);
       });
     } else {
@@ -67,7 +67,7 @@ getServerData(requestTypes.GENRE)
       requestData.page = 1;
       getServerData(requestTypes.TRENDING).then(movies => {
         requestData.movies = movies;
-        PaginationInstnce.setTotalPages(movies.total_pages);
+        PaginationInstnce.setTotalPages(Math.round(movies.total_pages / 20));
         saveConfig();
         renderMoviesMarkup(movies);
       });
