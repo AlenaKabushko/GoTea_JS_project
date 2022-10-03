@@ -26,9 +26,9 @@ getServerData(requestTypes.GENRE)
       .then(movies => {
         renderMoviesMarkup(movies);
       })
-      .then(() => {
-        console.log(requestData.movies.total_pages);
-        makePaginationBtn(requestData.movies.total_pages);
-        makePagination(requestData.movies.total_pages, 20);
-      });
+      // .then(() => {
+      //   console.log(requestData.movies.total_pages);
+      //   makePaginationBtn(requestData.movies.total_pages);
+      //   makePagination(requestData.movies.total_pages, 20);
+      // });
   });
