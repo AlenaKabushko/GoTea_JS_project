@@ -1,5 +1,4 @@
 import './js/fetchUrl';
-import './js/fetchUriImport';
 import {
   requestData,
   requestTypes,
