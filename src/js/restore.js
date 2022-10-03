@@ -7,19 +7,11 @@ import {
 } from './fetchUrl.js';
 import { getMultiOption, getOption, setOption } from './select.js';
 import { save, load } from './localstorage';
-import { makePagination, makePaginationBtn } from './pagination';
 
 const nameConfig = 'config';
 const nameLibrary = 'library';
 const classGenres = 'filter-genres';
 const classYears = 'filter-years';
-
-// let config = {
-//   requestData: {},
-//   genres: '',
-//   years: '',
-//   filterOn: 0,
-// };
 
 export function saveConfig() {
   const selectorYears = document.querySelector(`.custom-select.${classYears}`);
@@ -46,16 +38,13 @@ export function restoreConfig() {
     requestData.genres = config.requestData.genres;
     requestData.movie = config.requestData.movie;
     requestData.videos = config.requestData.videos;
+
     setOption(classYears, config.requestData.idxYears);
     console.log(config.requestData.valuesGenres);
     getNextServerData().then(movies => {
       return renderMoviesMarkup(movies);
     });
-    // .then(() => {
-    // console.log('total pages', requestData.movies.total_pages);
-    // makePaginationBtn(requestData.movies.total_pages);
-    // makePagination(requestData.movies.total_pages, 20);
-    // });
+
   } else {
     requestData.page = 1;
     return getServerData(requestTypes.TRENDING).then(movies => {
@@ -63,11 +52,7 @@ export function restoreConfig() {
       saveConfig();
       renderMoviesMarkup(movies);
     });
-    // .then(() => {
-    // console.log('total pages', requestData.movies.total_pages);
-    // makePaginationBtn(requestData.movies.total_pages);
-    // makePagination(requestData.movies.total_pages, 20);
-    // });
+
   }
 }
 

@@ -157,9 +157,10 @@ margin-top: 20px;
 }
 
 
-.header__library-user p{
-    color: red;
+.header__library-user p {
+    position: absolute;
+    top: 35px;
+    color: $text-accent;
     text-align: center;
-    font-size: 30px;
-    
+    font-size: 14px;
 }

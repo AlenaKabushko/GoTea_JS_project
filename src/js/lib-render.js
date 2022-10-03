@@ -20,6 +20,10 @@ function onlibWatchedBtnEl() {
   clear();
   changeWatchActiveBtn();
   let watched = load('watched');
+  if (!watched) {
+    return;
+  }
+
   let markup = watched
     .map(
       ({
@@ -37,7 +41,7 @@ function onlibWatchedBtnEl() {
           posterPath =
             'https://cdn.create.vista.com/api/media/small/324908572/stock-vector-3d-cinema-film-strip-in';
         }
-        return `<li class='films-gallery__item' key='${id}'>
+        return `<li class='films-gallery__item' key='${id}' type='watched'>
             <img
                 class='films-gallery__img'
                 src='${posterPath}'
@@ -66,6 +70,9 @@ function onlibQueueBtnEl() {
   clear();
   changeQueueActiveBtn();
   let queue = load('queue');
+  if (!queue) {
+    return;
+  }
   let markup = queue
     .map(
       ({
@@ -83,7 +90,7 @@ function onlibQueueBtnEl() {
           posterPath =
             'https://cdn.create.vista.com/api/media/small/324908572/stock-vector-3d-cinema-film-strip-in';
         }
-        return `<li class='films-gallery__item' key='${id}'>
+        return `<li class='films-gallery__item' key='${id}' type='queue'>
             <img
                 class='films-gallery__img'
                 src='${posterPath}'
@@ -120,3 +127,5 @@ function changeQueueActiveBtn() {
   libQueueBtnEl.setAttribute('disabled', 'disabled');
   libWatchedBtnEl.removeAttribute('disabled');
 }
+
+onlibWatchedBtnEl();

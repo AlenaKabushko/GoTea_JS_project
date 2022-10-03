@@ -1,6 +1,4 @@
 .footer {
-  background-color: $bg-vote-grey;
-  color: $text-additional-footer;
   font-family: 'Roboto';
 
   font-weight: 400;
@@ -15,6 +13,14 @@
   @media screen and (min-width: 1280px) {
     padding: 30px 0 28px;
   }
+}
+.footer-day {
+  background-color: $bg-vote-grey;
+  color: $text-additional-footer;
+}
+.footer-night {
+  color: $text-additional-footer;
+  background-color: #000;
 }
 .footer-list {
   display: block;
@@ -65,7 +71,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 280px;
-  height: 940px;
+  height: 540px;
   padding: 48px 20px;
   overflow: auto;
   text-align: center;
@@ -117,10 +123,15 @@
   margin: 0 auto;
   border-radius: 4px;
   margin-bottom: 5px;
+  transition: transform 250ms;
   @media screen and (min-width: 768px) {
     margin: 7px 5px;
   }
   @media screen and (min-width: 1280px) {
+  }
+  &:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.6));
   }
 }
 .teem-modal-sm {

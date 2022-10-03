@@ -19,8 +19,25 @@ function onGalleryCardClick(event) {
   event.preventDefault();
 
   const cardNode = event.currentTarget;
+  const movieId = cardNode.attributes.key.value;
 
-  renderDataToModalCard(cardNode);
+  let movie = null;
+  const type = cardNode.attributes.getNamedItem('type');
+  if (type) {
+    let storaged = load(type.value);
+    if (!storaged) {
+      return;
+    }
+    movie = storaged.find(element => element.id == movieId);
+  } else {
+    movie = requestData.movies.results.find(element => element.id == movieId);
+  }
+
+  if (!movie) {
+    return;
+  }
+
+  renderDataToModalCard(movie);
 
   if (window.matchMedia('(max-width: 767px)').matches) {
     modalWindow.style.top = window.pageYOffset + 'px';
@@ -32,9 +49,6 @@ function onGalleryCardClick(event) {
   btnClose.addEventListener('click', onButtonCloseClick);
   document.body.addEventListener('keydown', onEscapePress, false);
   overlay.addEventListener('click', onOverlayClick);
-
-  // console.log(btnClose);
-
   spinnerOff();
 }
 
@@ -102,16 +116,7 @@ async function getMovieTrailer(movieId) {
   }
 }
 
-async function renderDataToModalCard(cardNode) {
-  const movie = requestData.movies.results.find(
-    element => element.id == cardNode.attributes.key.value
-  );
-
-  if (!movie) {
-    // console.log('НЕ УДАЛОСЬ НАЙТИ ФИЛЬМ В ДАННЫХ ПО ID!!!');
-    return;
-  }
-
+async function renderDataToModalCard(movie) {
   const trailerID = await getMovieTrailer(movie.id);
 
   const {
