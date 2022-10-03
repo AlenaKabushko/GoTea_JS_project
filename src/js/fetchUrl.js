@@ -214,20 +214,30 @@ export function getNextServerData() {
 
 //функция рендеринга принятого массива данных после получения с сервера
 export function renderMoviesMarkup(movies) {
-  //сохраним в глобальной переменной
-  requestData.movies = movies;
-  //замена массива чисельных значений жанров на строку
-  setGenresNames(movies.results, requestData.genres);
-  //получение HTML-кода для вставки в контейнер
-  const markupList = createMoviesListMarkup(movies.results);
-  //вставка в контейнер
-  refs.filmsGallery.innerHTML = markupList;
+  const message = document.querySelector('.header__text-warning');
 
-  saveConfig();
+  if (movies.total_pages === 0) {
+    if (message) {
+      message.classList.remove('visually-hidden');
+    }
+  } else {
+    if (message) {
+      message.classList.add('visually-hidden');
+    }
+    //сохраним в глобальной переменной
+    requestData.movies = movies;
+    //замена массива чисельных значений жанров на строку
+    setGenresNames(movies.results, requestData.genres);
+    //получение HTML-кода для вставки в контейнер
+    const markupList = createMoviesListMarkup(movies.results);
+    //вставка в контейнер
+    refs.filmsGallery.innerHTML = markupList;
 
-  //устанавливаем обработчики кликов по карточкам
-  setGalleryClickListeners();
+    saveConfig();
 
+    //устанавливаем обработчики кликов по карточкам
+    setGalleryClickListeners();
+  }
   spinnerOff();
   return true;
 }

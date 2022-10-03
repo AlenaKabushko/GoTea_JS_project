@@ -5,6 +5,7 @@ import {
   getOptionNum,
   createCustomMultiSelect,
   getMultiOption,
+  setMultiOption,
 } from './select.js';
 
 import {
@@ -13,6 +14,8 @@ import {
   getServerData,
   renderMoviesMarkup,
 } from './fetchUrl.js';
+
+import { classGenres, classYears } from './restore';
 
 export function fillGenresFiltr(classSelect) {
   const markup = markupFilterGenres();
@@ -32,8 +35,8 @@ function markupFilterGenres() {
   return markup;
 }
 
-const filterBtn = document.querySelector('.filter-btn');
-filterBtn.addEventListener('click', function (e) {
+const filterBtnUse = document.querySelector('.filter-btn-use');
+filterBtnUse.addEventListener('click', function (e) {
   requestData.idxYears = getOptionNum('filter-years');
   const filterYears = getOption('filter-years');
   requestData.valuesGenres = getMultiOption('filter-genres');
@@ -52,6 +55,16 @@ filterBtn.addEventListener('click', function (e) {
       renderMoviesMarkup(movies);
     });
   }
+});
+
+const filterBtnReset = document.querySelector('.filter-btn-reset');
+filterBtnReset.addEventListener('click', function (e) {
+  setOption(classYears, 0);
+  setMultiOption(classGenres, '');
+  requestTypes.page = 1;
+  getServerData(requestTypes.TRENDING).then(movies => {
+    renderMoviesMarkup(movies);
+  });
 });
 
 const filterNavBtn = document.querySelector(

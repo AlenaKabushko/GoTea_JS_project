@@ -300,6 +300,33 @@ export function getMultiOption(classSelect) {
   return options;
 }
 
+export function setMultiOption(classSelect, genres) {
+  const multiSelect = document.querySelector(
+    `.custom-multi-select.${classSelect}`
+  );
+  const divElementSelectItems = multiSelect.querySelector('.select-items');
+
+  const selElmnt = multiSelect.getElementsByTagName('select')[0];
+  selElmnt.array = [];
+  selElmnt.array.push(0);
+  for (let i = 1; i < selElmnt.length - 2; i += 1) {
+    if (i === 1) {
+      selElmnt.array.push(1);
+      divElementSelectItems.childNodes[0].setAttribute(
+        'class',
+        'same-as-selected'
+      );
+    } else {
+      selElmnt.array.push(0);
+      divElementSelectItems.childNodes[i - 1].removeAttribute('class');
+    }
+  }
+  multiSelect.querySelector('.select-selected').textContent = getMultiString(
+    selElmnt,
+    selElmnt.length
+  );
+}
+
 /*if the user clicks anywhere outside the select box,
   then close all select boxes:*/
 document.addEventListener('click', closeAllSelect);
