@@ -1,11 +1,6 @@
 import './js/fetchUrl';
-import {
-  requestData,
-  requestTypes,
-  getServerData,
-  getNextServerData,
-  renderMoviesMarkup,
-} from './js/fetchUrl';
+import './js/fetchUriImport';
+
 import './js/firebase';
 import './js/search';
 import './js/select';
