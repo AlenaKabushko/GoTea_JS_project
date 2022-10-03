@@ -7,18 +7,10 @@ import {
 } from './fetchUrl.js';
 import { getMultiOption } from './select.js';
 import { save, load } from './localstorage';
-import { makePagination, makePaginationBtn } from './pagination';
 
 const nameConfig = 'config';
 const classGenres = 'filter-genres';
 const classYears = 'filter-years';
-
-// let config = {
-//   requestData: {},
-//   genres: '',
-//   years: '',
-//   filterOn: 0,
-// };
 
 export function saveConfig() {
   const selectorYears = document.querySelector(`.custom-select.${classYears}`);
@@ -44,28 +36,16 @@ export function restoreConfig() {
     requestData.movie = config.requestData.movie;
     requestData.videos = config.requestData.videos;
 
-    getNextServerData()
-      .then(movies => {
-        return renderMoviesMarkup(movies);
-      })
-      .then(() => {
-        // console.log('total pages', requestData.movies.total_pages);
-        // makePaginationBtn(requestData.movies.total_pages);
-        // makePagination(requestData.movies.total_pages, 20);
-      });
+    getNextServerData().then(movies => {
+      return renderMoviesMarkup(movies);
+    });
   } else {
     console.log(false);
     requestData.page = 1;
-    return getServerData(requestTypes.TRENDING)
-      .then(movies => {
-        requestData.movies = movies;
-        saveConfig();
-        renderMoviesMarkup(movies);
-      })
-      .then(() => {
-        // console.log('total pages', requestData.movies.total_pages);
-        // makePaginationBtn(requestData.movies.total_pages);
-        // makePagination(requestData.movies.total_pages, 20);
-      });
+    return getServerData(requestTypes.TRENDING).then(movies => {
+      requestData.movies = movies;
+      saveConfig();
+      renderMoviesMarkup(movies);
+    });
   }
 }

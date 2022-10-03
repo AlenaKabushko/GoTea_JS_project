@@ -1,38 +1,98 @@
 .pagination {
-    position: relative;
-    display: flex;
-justify-content: center;
-align-items: center;
-flex-wrap: wrap;
-background-color: $text-secondary;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
 }
 
-.pagination-list__item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    line-height: 1.3;
-    cursor: pointer;
-    list-style-type: none;
-
-    &:not(:last-child){
-        margin-right: 16px;
-    }
-
-    &:active,
-    &:hover,
-    &:focus {
-        color: $current-page;
-    }
+.pagination__number {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: #000;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 5px;
+  border: none;
+  transition: all 250ms ease-in-out;
+}
+.pagination__number:not(:last-child) {
+  margin-right: 4px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.current {
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
-    background-color: $text-accent;
-    color: $text-secondary;
-    
+.pagination__number:hover {
+  background-color: #ff6b01;
+  color: #ff6b01;
 }
 
+.active {
+  background-color: #ff6b01;
+  color: #ffffff;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%),
+    0 2px 1px -1px rgb(0 0 0 / 12%);
+}
+
+.pagination__arrow {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  padding: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  font-weight: 900;
+
+  background-position: 50%;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%),
+    0 2px 1px -1px rgb(0 0 0 / 12%);
+
+  /* @media screen and (max-width: 767px) {
+      width: 35px;
+      height: 35px;
+      padding: 10px;
+  } */
+}
+.pagination__arrow.material-icons {
+  color: #f7f7f7;
+}
+
+.pagination__arrow.material-icons:hover {
+  background-color: #ff6b01;
+  color: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+
+.pagination__arrow.material-icons--right {
+  margin-left: 20px;
+
+  /* @media screen and (max-width: 767px) {
+          margin-left: 10px;
+      } */
+}
+
+.pagination__arrow.material-icons--left {
+  margin-right: 20px;
+
+  /* @media screen and (max-width: 767px) {
+          margin-right: 10px;
+      } */
+}
+
+.material-icons {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000;
+  transition: all 250ms ease-in-out;
+}
+
+.display-none {
+  /* @media screen and (max-width: 767px) {
+      display: none;
+  } */
+}
