@@ -10,6 +10,7 @@ import './js/firebase';
 import './js/search';
 import './js/select';
 import './js/filter';
+import './js/restore';
 import { fillGenresFiltr } from './js/filter';
 import './js/gallery-card-modal';
 import { save, load } from './js/localstorage';

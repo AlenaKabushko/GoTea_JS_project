@@ -5,10 +5,11 @@ import {
   getNextServerData,
   renderMoviesMarkup,
 } from './fetchUrl.js';
-import { getMultiOption } from './select.js';
+import { getMultiOption, getOption, setOption } from './select.js';
 import { save, load } from './localstorage';
 
 const nameConfig = 'config';
+const nameLibrary = 'library';
 const classGenres = 'filter-genres';
 const classYears = 'filter-years';
 
@@ -24,8 +25,10 @@ export function saveConfig() {
 }
 
 export function restoreConfig() {
+  let library = load(nameLibrary);
   let config = load(nameConfig);
-  if (config) {
+  save(nameLibrary, '0');
+  if (library !== undefined && library === '1' && config) {
     requestData.page = config.requestData.page;
     requestData.request = config.requestData.request;
     requestData.discover = config.requestData.discover;
@@ -36,16 +39,24 @@ export function restoreConfig() {
     requestData.movie = config.requestData.movie;
     requestData.videos = config.requestData.videos;
 
+    setOption(classYears, config.requestData.idxYears);
+    console.log(config.requestData.valuesGenres);
     getNextServerData().then(movies => {
       return renderMoviesMarkup(movies);
     });
+
   } else {
-    console.log(false);
     requestData.page = 1;
     return getServerData(requestTypes.TRENDING).then(movies => {
       requestData.movies = movies;
       saveConfig();
       renderMoviesMarkup(movies);
     });
+
   }
 }
+
+const libraryBtn = document.querySelector('.header__navigation-link');
+libraryBtn.addEventListener('click', function (e) {
+  save(nameLibrary, '1');
+});

@@ -133,6 +133,36 @@ export function getOption(classSelect) {
   }
 }
 
+export function getOptionNum(classSelect) {
+  const textSelect = document
+    .querySelector(`.custom-select.${classSelect}`)
+    .querySelector('.select-selected');
+  switch (textSelect.textContent) {
+    case 'Year':
+      return 0;
+    case '2022':
+      return 1;
+    case '2021':
+      return 2;
+    case '2020':
+      return 3;
+    case '2016-19':
+      return 4;
+    case '2010-15':
+      return 5;
+    case '2000s':
+      return 6;
+    case '1990s':
+      return 7;
+    case '1980s':
+      return 8;
+    case '1970s':
+      return 9;
+    case '1960s':
+      return 10;
+  }
+}
+
 //------------------------------------------------
 export function createCustomMultiSelect() {
   /*look for any elements with the class "custom-multi-select":*/
