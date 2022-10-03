@@ -122,7 +122,7 @@ function renderPagination(parent, page, totalPages, countPoint, useInterval) {
     .map(
       el =>
         `<a class="pagination__number ${
-          page === el ? 'active' : ''
+          page === el ? 'active-button' : ''
         }" data-index = ${el}">${el}</a>`
     )
     .join('');
@@ -132,7 +132,7 @@ function renderPagination(parent, page, totalPages, countPoint, useInterval) {
                           useInterval
                             ? `<a class="pagination__number ${
                                 page === 1
-                                  ? 'active'
+                                  ? 'active-button'
                                   : page <= countPoint
                                   ? ''
                                   : 'display-none'
@@ -160,7 +160,7 @@ function renderPagination(parent, page, totalPages, countPoint, useInterval) {
                           useInterval && isOffset && totalPages > countPoint
                             ? `<a class="pagination__number ${
                                 page === totalPages
-                                  ? 'active'
+                                  ? 'active-button'
                                   : page > totalPages - countPoint
                                   ? ''
                                   : 'display-none'
