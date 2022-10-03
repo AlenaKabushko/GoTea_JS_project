@@ -51,13 +51,13 @@ filterBtnUse.addEventListener('click', function (e) {
   if (requestData.discover) {
     getServerData(requestTypes.DISCOVER).then(movies => {
       PaginationInstnce.currentPage = 1;
-      PaginationInstnce.setTotalPages(Math.round(movies.total_pages / 20));
+      PaginationInstnce.setTotalPages(movies.total_pages);
       renderMoviesMarkup(movies);
     });
   } else {
     getServerData(requestTypes.TRENDING).then(movies => {
       PaginationInstnce.currentPage = 1;
-      PaginationInstnce.setTotalPages(Math.round(movies.total_pages / 20));
+      PaginationInstnce.setTotalPages(movies.total_pages);
       renderMoviesMarkup(movies);
     });
   }
@@ -70,7 +70,7 @@ filterBtnReset.addEventListener('click', function (e) {
   requestTypes.page = 1;
   getServerData(requestTypes.TRENDING).then(movies => {
     PaginationInstnce.currentPage = 1;
-    PaginationInstnce.setTotalPages(Math.round(movies.total_pages / 20));
+    PaginationInstnce.setTotalPages(movies.total_pages);
     renderMoviesMarkup(movies);
   });
 });

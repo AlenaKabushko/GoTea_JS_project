@@ -59,7 +59,7 @@ getServerData(requestTypes.GENRE)
 
       PaginationInstnce.currentPage = requestData.page;
       getNextServerData().then(movies => {
-        PaginationInstnce.setTotalPages(Math.round(movies.total_pages / 20));
+        PaginationInstnce.setTotalPages(movies.total_pages);
         renderMoviesMarkup(movies);
       });
     } else {
@@ -67,7 +67,8 @@ getServerData(requestTypes.GENRE)
       requestData.page = 1;
       getServerData(requestTypes.TRENDING).then(movies => {
         requestData.movies = movies;
-        PaginationInstnce.setTotalPages(Math.round(movies.total_pages / 20));
+        PaginationInstnce.currentPage = 1;
+        PaginationInstnce.setTotalPages(movies.total_pages);
         saveConfig();
         renderMoviesMarkup(movies);
       });

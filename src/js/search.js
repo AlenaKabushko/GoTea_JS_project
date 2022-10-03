@@ -22,7 +22,7 @@ function onBtnSearcClick(e) {
     requestData.page = 1;
     getServerData(requestTypes.SEARCH).then(movies => {
       PaginationInstnce.currentPage = 1;
-      PaginationInstnce.setTotalPages(Math.round(movies.total_pages / 20));
+      PaginationInstnce.setTotalPages(movies.total_pages);
 
       renderMoviesMarkup(movies);
       searchInput.value = '';
