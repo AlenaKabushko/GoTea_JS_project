@@ -25,13 +25,15 @@ function onGalleryCardClick(event) {
   const type = cardNode.attributes.getNamedItem('type');
   if (type) {
     let storaged = load(type.value);
+    if (!storaged) {
+      return;
+    }
     movie = storaged.find(element => element.id == movieId);
   } else {
     movie = requestData.movies.results.find(element => element.id == movieId);
   }
 
   if (!movie) {
-    // console.log('НЕ УДАЛОСЬ НАЙТИ ФИЛЬМ В ДАННЫХ ПО ID!!!');
     return;
   }
 
@@ -47,9 +49,6 @@ function onGalleryCardClick(event) {
   btnClose.addEventListener('click', onButtonCloseClick);
   document.body.addEventListener('keydown', onEscapePress, false);
   overlay.addEventListener('click', onOverlayClick);
-
-  // console.log(btnClose);
-
   spinnerOff();
 }
 
