@@ -15,13 +15,14 @@
 .custom-select {
   position: relative;
   font-family: inherit;
-  font-size: 14px;
   border-style: solid;
   border-color: #606060;
   border-width: 1px;
   border-radius: 16px;
   margin-right: 0px;
+  font-size: 10px;
   @media screen and (min-width: 768px) {
+    font-size: 14px;
     margin-right: 10px;
   }
 }
@@ -39,7 +40,10 @@
 .select-selected:after {
   position: absolute;
   content: '';
-  top: 12px;
+  top: 10px;
+  @media screen and (min-width: 768px) {
+    top: 12px;
+  }
   right: 10px;
   width: 0;
   height: 0;
@@ -50,7 +54,10 @@
 /*point the arrow upwards when the select box is open (active):*/
 .select-selected.select-arrow-active:after {
   border-color: transparent transparent #fff transparent; /* #fff */
-  top: 5px;
+  top: 3px;
+  @media screen and (min-width: 768px) {
+    top: 5px;
+  }
 }
 
 .select-selected {
@@ -108,7 +115,9 @@ div .same-as-selected {
 .filter-btn {
   color: #fff;
   padding: 4px 8px;
+  font-size: 10px;
   @media screen and (min-width: 768px) {
+    font-size: 14px;
     padding: 4px 16px;
   }
   border: 1px solid transparent;
