@@ -285,7 +285,7 @@ function createMoviesListMarkup(movies) {
 //функция замены массива жанров на строку (только для поиска по ID)
 export function setMovieGenresNames(movie) {
   //усечение даты до года
-  movie.release_date = movie.release_date.slice(0, 4);
+  movie.release_date = movie.release_date?.slice(0, 4);
   //формируем строку жанров
   const genreList = [];
   //сначала создадим массив строк
@@ -302,7 +302,7 @@ function setGenresNames(movies, genresList) {
   //по всем объектам
   movies.forEach(movie => {
     //усечение даты до года
-    movie.release_date = movie.release_date.slice(0, 4);
+    movie.release_date = movie.release_date?.slice(0, 4);
     //возьмем массив жанров
     const genresIdsList = movie.genre_ids;
     //по всем жанрам
