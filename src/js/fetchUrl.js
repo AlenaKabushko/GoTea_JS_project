@@ -4,6 +4,7 @@ import { spinnerOn, spinnerOff } from './spinner';
 // для добавления кликов по отрендеренным карточкам
 import { setGalleryClickListeners } from './gallery-card-modal';
 import { makePagination, makePaginationBtn } from './pagination';
+import { saveConfig } from './restore';
 
 const refs = {
   filmsGallery: document.querySelector('.films-gallery'),
@@ -124,11 +125,10 @@ export const getServerData = async (type = requestTypes.TRENDING) => {
 //функция для продолжения текущего запроса для заданной страницы (для пагинации)
 //перед вызовом задаем номер страницы. Все остальные данные сохранены в глобальной переменной
 export function getNextServerData() {
-  getServerData(requestData.request);
+  return getServerData(requestData.request);
 }
 
 //-----------------------------------------------------------------------
-
 
 //Следующие функции перенесутся в нужные файлы
 //Пока здесь для наглядности
@@ -220,10 +220,13 @@ export function renderMoviesMarkup(movies) {
   //вставка в контейнер
   refs.filmsGallery.innerHTML = markupList;
 
+  saveConfig();
+
   //устанавливаем обработчики кликов по карточкам
   setGalleryClickListeners();
 
   spinnerOff();
+  return true;
 }
 
 function createMoviesListMarkup(movies) {
@@ -281,7 +284,6 @@ export function setMovieGenresNames(movie) {
 //функция замены массива жанров на строку
 //параметры: массив объектов и массив соответствия номера жанра и названия
 function setGenresNames(movies, genresList) {
-
   // console.log(movies, genresList);
 
   //по всем объектам
