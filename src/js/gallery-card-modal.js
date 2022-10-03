@@ -1,4 +1,3 @@
-import { requestData, requestTypes, getServerData } from './fetchUrl';
 import { load, save, remove } from './localstorage';
 import { spinnerOff } from './spinner';
 import { libMarkup } from './libMarkup';
