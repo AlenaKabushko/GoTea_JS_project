@@ -138,7 +138,7 @@ const authCheking = (() => {
         name: snapshot.val(),
       }  
         console.log(userIn)
-        userNameContainer.insertAdjacentHTML('afterbegin', `<p>${name}'s profile</p>`)
+        userNameContainer.insertAdjacentHTML('afterbegin', `<p>${name}</p>`)
         openModalBtn.classList.add('visually-hidden')
         logoutBtn.classList.remove('visually-hidden')
         libraryBtn.classList.remove('disabled')
