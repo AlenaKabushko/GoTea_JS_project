@@ -62,7 +62,6 @@ getServerData(requestTypes.GENRE)
         renderMoviesMarkup(movies);
       });
     } else {
-      console.log(false);
       requestData.page = 1;
       getServerData(requestTypes.TRENDING).then(movies => {
         requestData.movies = movies;

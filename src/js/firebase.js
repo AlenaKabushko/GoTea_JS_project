@@ -24,7 +24,6 @@ const closeModalBtn = document.querySelector("[data-modal-close]")
 const modal = document.querySelector("[data-modal]")
 const libraryBtn = document.querySelector('.library')
 const userNameContainer = document.querySelector('.header__library-user')
-// const libraryHeader = document.querySelector(".header__library-user")
 
 
 formReg.addEventListener('submit', createUser)
@@ -47,7 +46,6 @@ function createUser(event) {
     password: event.currentTarget.elements.password.value,
     username: event.currentTarget.elements.username.value   
     }
-    // console.log(formElements)
   // Створення користувача за поштою та емейлом
      createUserWithEmailAndPassword(auth, formElements.email, formElements.password, formElements.username)
         .then((userCredential) => {
@@ -88,17 +86,10 @@ function getUser(event) {
     // Signed in 
     const user = userCredential.user;
 
-    
-    // const userId = auth.currentUser.uid
-    // const currentUser = auth.currentUser
-    // console.log(userId)
-    
-
     const db = getDatabase();
     const nameRef = ref(db, 'users/' + user.uid + '/username')
     onValue (nameRef, (snapshot) => {
       const name = snapshot.val();
-      // console.log(name)
     
     const user = {
         id: auth.currentUser.uid,
@@ -112,7 +103,6 @@ function getUser(event) {
       libraryBtn.classList.remove('disabled')
       
       modal.classList.toggle("visually-hidden")
-      // userNameContainer.insertAdjacentHTML('afterbegin', `<p>${name} profile</p>`)
     });
     return user;
   })
@@ -137,7 +127,6 @@ const authCheking = (() => {
         email: auth.currentUser.email,
         name: snapshot.val(),
       }  
-        console.log(userIn)
         userNameContainer.insertAdjacentHTML('afterbegin', `<p>${name}</p>`)
         openModalBtn.classList.add('visually-hidden')
         logoutBtn.classList.remove('visually-hidden')
@@ -146,9 +135,7 @@ const authCheking = (() => {
       })
 
     // ...
-  } else {
-    console.log('Nobody is here')
-  }
+  } 
 });
 
 })
