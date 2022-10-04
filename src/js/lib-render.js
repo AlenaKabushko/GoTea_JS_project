@@ -116,6 +116,7 @@ function onlibQueueBtnEl() {
     )
     .join('');
   galleryEl.insertAdjacentHTML('afterbegin', markup);
+  spinnerOff();
   setGalleryClickListeners();
 }
 
