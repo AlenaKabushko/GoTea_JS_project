@@ -22,7 +22,8 @@ function onlibWatchedBtnEl() {
   changeWatchActiveBtn();
   spinnerOn();
   let watched = load('watched');
-  if (!watched) {
+  if (!watched.length) {
+    spinnerOff();
     return;
   }
 
@@ -73,7 +74,8 @@ function onlibQueueBtnEl() {
   changeQueueActiveBtn();
   spinnerOn();
   let queue = load('queue');
-  if (!queue) {
+  if (!queue.length) {
+    spinnerOff();
     return;
   }
   let markup = queue
@@ -114,7 +116,6 @@ function onlibQueueBtnEl() {
     )
     .join('');
   galleryEl.insertAdjacentHTML('afterbegin', markup);
-  spinnerOff();
   setGalleryClickListeners();
 }
 
