@@ -19,6 +19,7 @@ import {
 import { classGenres, classYears } from './restore';
 
 import { PaginationInstnce } from '../index';
+import { setErrorMessage } from './errorMessage';
 
 export function fillGenresFiltr(classSelect) {
   const markup = markupFilterGenres();
