@@ -8,7 +8,7 @@ open.addEventListener("click", teemModal);
 close.addEventListener("click", teemModal);
 modal.addEventListener("click", closeModal);
 
-modals.addEventListener('keydown', (evt) => {
+document.addEventListener('keydown', (evt) => {
         if (evt.code === "Escape") {
           closeModal();
         }
@@ -16,11 +16,11 @@ modals.addEventListener('keydown', (evt) => {
 
 function teemModal() {
     modal.classList.toggle("visually-hidden");
-  modals.classList.toggle("visually-hidden");   
-  
+    modals.classList.toggle("visually-hidden"); 
 }
+
 function closeModal() {
-   modal.classList.add("visually-hidden");
+  modal.classList.add("visually-hidden");
   modals.classList.add("visually-hidden");
 }  
 
