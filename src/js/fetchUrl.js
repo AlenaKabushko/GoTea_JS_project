@@ -4,6 +4,7 @@ import { spinnerOn, spinnerOff } from './spinner';
 // для добавления кликов по отрендеренным карточкам
 import { setGalleryClickListeners } from './gallery-card-modal';
 import { saveConfig } from './restore';
+import { setErrorNoData, clearErrorMessage } from './errorMessage';
 
 const refs = {
   filmsGallery: document.querySelector('.films-gallery'),
@@ -137,11 +138,11 @@ export function renderMoviesMarkup(movies) {
 
   if (movies.total_pages === 0) {
     if (message) {
-      message.classList.remove('visually-hidden');
+      setErrorNoData();
     }
   } else {
     if (message) {
-      message.classList.add('visually-hidden');
+      clearErrorMessage();
     }
     //сохраним в глобальной переменной
     requestData.movies = movies;
@@ -216,7 +217,6 @@ export function setMovieGenresNames(movie) {
 //функция замены массива жанров на строку
 //параметры: массив объектов и массив соответствия номера жанра и названия
 function setGenresNames(movies, genresList) {
-
   //по всем объектам
   movies.forEach(movie => {
     //усечение даты до года

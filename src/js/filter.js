@@ -50,17 +50,21 @@ filterBtnUse.addEventListener('click', function (e) {
   }
   requestData.discover += filterYears;
   if (requestData.discover) {
-    getServerData(requestTypes.DISCOVER).then(movies => {
-      PaginationInstnce.currentPage = 1;
-      PaginationInstnce.setTotalPages(Math.min(500, movies.total_pages));
-      renderMoviesMarkup(movies);
-    });
+    getServerData(requestTypes.DISCOVER)
+      .then(movies => {
+        PaginationInstnce.currentPage = 1;
+        PaginationInstnce.setTotalPages(Math.min(500, movies.total_pages));
+        renderMoviesMarkup(movies);
+      })
+      .catch(error => setErrorMessage(error.message));
   } else {
-    getServerData(requestTypes.TRENDING).then(movies => {
-      PaginationInstnce.currentPage = 1;
-      PaginationInstnce.setTotalPages(Math.min(500, movies.total_pages));
-      renderMoviesMarkup(movies);
-    });
+    getServerData(requestTypes.TRENDING)
+      .then(movies => {
+        PaginationInstnce.currentPage = 1;
+        PaginationInstnce.setTotalPages(Math.min(500, movies.total_pages));
+        renderMoviesMarkup(movies);
+      })
+      .catch(error => setErrorMessage(error.message));
   }
 });
 
@@ -69,11 +73,13 @@ filterBtnReset.addEventListener('click', function (e) {
   setOption(classYears, 0);
   setMultiOption(classGenres, '');
   requestTypes.page = 1;
-  getServerData(requestTypes.TRENDING).then(movies => {
-    PaginationInstnce.currentPage = 1;
-    PaginationInstnce.setTotalPages(Math.min(500, movies.total_pages));
-    renderMoviesMarkup(movies);
-  });
+  getServerData(requestTypes.TRENDING)
+    .then(movies => {
+      PaginationInstnce.currentPage = 1;
+      PaginationInstnce.setTotalPages(Math.min(500, movies.total_pages));
+      renderMoviesMarkup(movies);
+    })
+    .catch(error => setErrorMessage(error.message));
 });
 
 const filterNavBtn = document.querySelector(

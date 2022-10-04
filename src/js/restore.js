@@ -42,16 +42,20 @@ export function restoreConfig() {
 
     setOption(classYears, config.requestData.idxYears);
     console.log(config.requestData.valuesGenres);
-    getNextServerData().then(movies => {
-      return renderMoviesMarkup(movies);
-    });
+    getNextServerData()
+      .then(movies => {
+        return renderMoviesMarkup(movies);
+      })
+      .catch(error => setErrorMessage(error.message));
   } else {
     requestData.page = 1;
-    return getServerData(requestTypes.TRENDING).then(movies => {
-      requestData.movies = movies;
-      saveConfig();
-      renderMoviesMarkup(movies);
-    });
+    return getServerData(requestTypes.TRENDING)
+      .then(movies => {
+        requestData.movies = movies;
+        saveConfig();
+        renderMoviesMarkup(movies);
+      })
+      .catch(error => setErrorMessage(error.message));
   }
 }
 
