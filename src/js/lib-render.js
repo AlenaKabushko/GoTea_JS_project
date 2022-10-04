@@ -1,7 +1,7 @@
 import { load, save, remove } from './localstorage';
 import { setGalleryClickListeners } from './gallery-card-modal';
 import { makePagination, makePaginationBtn } from './pagination';
-import { setGalleryClickListeners } from './gallery-card-modal';
+// import { setGalleryClickListeners } from './gallery-card-modal';
 import { spinnerOn, spinnerOff } from './spinner';
 
 const libWatchedBtnEl = document.querySelector(
@@ -22,7 +22,7 @@ function onlibWatchedBtnEl() {
   changeWatchActiveBtn();
   spinnerOn();
   let watched = load('watched');
-  if (!watched.length) {
+  if (!watched || !watched.length) {
     spinnerOff();
     return;
   }
@@ -74,7 +74,7 @@ function onlibQueueBtnEl() {
   changeQueueActiveBtn();
   spinnerOn();
   let queue = load('queue');
-  if (!queue.length) {
+  if (!queue || !queue.length) {
     spinnerOff();
     return;
   }

@@ -116,12 +116,17 @@ function onBtnTrailerCloseClick(event) {
 
 async function getMovieTrailer(movieId) {
   requestData.id = movieId;
-  const { results } = await getServerData(requestTypes.VIDEO);
-  const trailerObj = results.find(element => element.type === 'Trailer');
-  if (trailerObj) {
-    return trailerObj.key;
-  } else {
-    return undefined;
+  try {
+    const { results } = await getServerData(requestTypes.VIDEO);
+
+    const trailerObj = results.find(element => element.type === 'Trailer');
+    if (trailerObj) {
+      return trailerObj.key;
+    } else {
+      return undefined;
+    }
+  } catch {
+    error => setErrorMessage(error.message);
   }
 }
 
@@ -398,4 +403,3 @@ function clear() {
 }
 
 export { setGalleryClickListeners };
-

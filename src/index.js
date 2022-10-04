@@ -21,6 +21,8 @@ import './js/switcherTheme';
 import './js/button-up';
 import { Pagination } from './js/pagination';
 import { saveConfig } from './js/restore';
+import './js/errorMessage';
+import { setErrorMessage } from './js/errorMessage';
 
 const PaginationInstnce = new Pagination(
   document.getElementById('pagination'),
@@ -57,20 +59,25 @@ getServerData(requestTypes.GENRE)
       requestData.videos = config.requestData.videos;
 
       PaginationInstnce.currentPage = requestData.page;
-      getNextServerData().then(movies => {
-        PaginationInstnce.setTotalPages(Math.min(500, movies.total_pages));
-        renderMoviesMarkup(movies);
-      });
+      getNextServerData()
+        .then(movies => {
+          PaginationInstnce.setTotalPages(Math.min(500, movies.total_pages));
+          renderMoviesMarkup(movies);
+        })
+        .catch(error => setErrorMessage(error.message));
     } else {
       requestData.page = 1;
-      getServerData(requestTypes.TRENDING).then(movies => {
-        requestData.movies = movies;
-        PaginationInstnce.currentPage = 1;
-        PaginationInstnce.setTotalPages(Math.min(500, movies.total_pages));
-        saveConfig();
-        renderMoviesMarkup(movies);
-      });
+      getServerData(requestTypes.TRENDING)
+        .then(movies => {
+          requestData.movies = movies;
+          PaginationInstnce.currentPage = 1;
+          PaginationInstnce.setTotalPages(Math.min(500, movies.total_pages));
+          saveConfig();
+          renderMoviesMarkup(movies);
+        })
+        .catch(error => setErrorMessage(error.message));
     }
-  });
+  })
+  .catch(error => setErrorMessage(error.message));
 
 export { PaginationInstnce };
