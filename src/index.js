@@ -46,15 +46,17 @@ getServerData(requestTypes.GENRE)
   .then(() => {
     let config = load('config');
     if (config) {
-       requestData.page = config.requestData.page;
-      requestData.request = config.requestData.request;
-      requestData.discover = config.requestData.discover;
-      requestData.id = config.requestData.id;
-      requestData.search = config.requestData.search;
-      requestData.movies = config.requestData.movies;
-      requestData.genres = config.requestData.genres;
-      requestData.movie = config.requestData.movie;
-      requestData.videos = config.requestData.videos;
+      // requestData.page = config.requestData.page;
+      // requestData.request = config.requestData.request;
+      // requestData.discover = config.requestData.discover;
+      // requestData.id = config.requestData.id;
+      // requestData.search = config.requestData.search;
+      // requestData.movies = config.requestData.movies;
+      // requestData.genres = config.requestData.genres;
+      // requestData.movie = config.requestData.movie;
+      // requestData.videos = config.requestData.videos;
+
+      requestData = { ...config.requestData };
 
       PaginationInstnce.currentPage = requestData.page;
       getNextServerData().then(movies => {
