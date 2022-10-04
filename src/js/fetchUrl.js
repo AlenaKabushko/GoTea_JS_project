@@ -131,87 +131,6 @@ export function getNextServerData() {
   return getServerData(requestData.request);
 }
 
-//-----------------------------------------------------------------------
-
-//Следующие функции перенесутся в нужные файлы
-//Пока здесь для наглядности
-//-----------------------------------------------------------------------
-//запрос всех данных и их отображение на сегодня
-//перед вызовом задаем номер страницу в глобальной переменной
-//при "домой" - первую, при пагинации нужную
-// requestData.page = 1;
-// getServerData(requestTypes.TRENDING).then(movies => {
-//   renderMoviesMarkup(movies);
-// });
-
-//-----------------------------------------------------------------------
-//запрос данных и их отображение при фильтрации по жанрам
-//перед вызовом необходимо записать номера жанров в глобальную переменную
-//  и задать номер страницы
-
-// requestData.discover = '28,18';
-// requestData.page = 2;
-// getServerData(requestTypes.DISCOVER).then(movies => {
-//   renderMoviesMarkup(movies);
-// });
-
-//-----------------------------------------------------------------------
-//запрос данных и их отображение при поиске по строке
-//перед вызовом необходимо записать строку в глобальную переменную
-//  и задать номер страницы
-
-// requestData.search = 'terminator';
-// requestData.page = 1;
-// getServerData(requestTypes.SEARCH).then(movies => {
-//   renderMoviesMarkup(movies);
-// });
-
-//-----------------------------------------------------------------------
-//запрос данных по ID
-//перед вызовом необходимо записать ID в глобальную переменную
-//только сохраняет в глобальной переменной
-
-// requestData.id = 1006851;
-// getServerData(requestTypes.ID).then(movie => {
-//   //формирование строки жанров
-//   setMovieGenresNames(movie);
-//   requestData.movie = movie;
-// });
-
-//-----------------------------------------------------------------------
-//запрос video по ID
-//перед вызовом необходимо записать ID в глобальную переменную
-//только сохраняет в глобальной переменной
-
-// requestData.id = 718930;
-// getServerData(requestTypes.VIDEO).then(videos => {
-//   requestData.videos = videos.results;
-// });
-
-//-----------------------------------------------------------------------
-//запрос популярных данных и их отображение на сегодня
-//перед вызовом задаем номер страницу в глобальной переменной
-
-// requestData.page = 1;
-// getServerData(requestTypes.POPULAR).then(movies => {
-//   renderMoviesMarkup(movies);
-// });
-
-//-----------------------------------------------------------------------
-//запрос рейтинговых данных и их отображение
-//перед вызовом задаем номер страницу в глобальной переменной
-
-// requestData.page = 1;
-// getServerData(requestTypes.TOPRATED).then(movies => {
-//   renderMoviesMarkup(movies);
-// });
-
-//-----------------------------------------------------------------------
-//продолжение текущего запроса для заданной страницы (для пагинации)
-//перед вызовом задаем номер страницы
-// requestData.page = 2;
-// getNextServerData();
-
 //функция рендеринга принятого массива данных после получения с сервера
 export function renderMoviesMarkup(movies) {
   const message = document.querySelector('.header__text-warning');
@@ -297,7 +216,6 @@ export function setMovieGenresNames(movie) {
 //функция замены массива жанров на строку
 //параметры: массив объектов и массив соответствия номера жанра и названия
 function setGenresNames(movies, genresList) {
-  // console.log(movies, genresList);
 
   //по всем объектам
   movies.forEach(movie => {
